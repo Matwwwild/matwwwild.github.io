@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr" class="antialiased text-slate-900 bg-slate-100 dark:bg-slate-900 dark:text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Retours - Délégués EPITA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'media',
+            theme: {
+                extend: {
+                    colors: {
+                        epitaBlue: '#0055A4', // Couleur inspirée de l'école
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for textareas */
+        textarea::-webkit-scrollbar {
+            width: 8px;
+        }
+        textarea::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        textarea::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 20px;
+        }
+        .dark textarea::-webkit-scrollbar-thumb {
+            background-color: #475569;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 sm:p-8">
+
+    <main class="w-full max-w-2xl bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden ring-1 ring-slate-900/5 dark:ring-white/10">
+        
+        <!-- Header Section -->
+        <div class="bg-epitaBlue px-6 py-8 sm:px-10 text-white">
+            <div class="flex items-center justify-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-bold text-center tracking-tight">Vos Retours - EPITA</h1>
+            <p class="mt-2 text-blue-100 text-center text-sm sm:text-base">
+                Salut ! En tant que délégué, j'ai besoin de votre avis sur ce semestre. Vos réponses m'aideront à faire remonter les bonnes (et moins bonnes) choses à l'administration.
+            </p>
+        </div>
+
+        <!-- Form Section -->
+        <div class="px-6 py-8 sm:px-10" id="form-container">
+            <form id="feedbackForm" class="space-y-6">
+                
+                <!-- Nom & Prénom (Grid) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label for="prenom" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Prénom</label>
+                        <input type="text" id="prenom" name="prenom" required placeholder="Alan" 
+                            class="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-epitaBlue focus:border-epitaBlue outline-none transition-all placeholder-slate-400 dark:placeholder-slate-500">
+                    </div>
+                    <div>
+                        <label for="nom" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Nom</label>
+                        <input type="text" id="nom" name="nom" required placeholder="Turing" 
+                            class="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-epitaBlue focus:border-epitaBlue outline-none transition-all placeholder-slate-400 dark:placeholder-slate-500">
+                    </div>
+                </div>
+
+                <!-- Matières appréciées -->
+                <div>
+                    <label for="matieres_aimees" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                        🚀 Les matières que tu apprécies le plus
+                    </label>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-2">Celles où les cours sont top, les projets intéressants, ou les profs géniaux.</p>
+                    <textarea id="matieres_aimees" name="matieres_aimees" rows="3" required placeholder="Ex: Prog C (super projets), Algo..."
+                        class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-epitaBlue focus:border-epitaBlue outline-none transition-all resize-y placeholder-slate-400 dark:placeholder-slate-500"></textarea>
+                </div>
+
+                <!-- Matières moins appréciées -->
+                <div>
+                    <label for="matieres_detestees" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                        📉 Les matières où c'est plus compliqué
+                    </label>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-2">Ce qui bloque, charge de travail inadaptée, pédagogie à revoir...</p>
+                    <textarea id="matieres_detestees" name="matieres_detestees" rows="3" required placeholder="Ex: Archi (rythme trop rapide)..."
+                        class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-epitaBlue focus:border-epitaBlue outline-none transition-all resize-y placeholder-slate-400 dark:placeholder-slate-500"></textarea>
+                </div>
+
+                <!-- Remarques libres -->
+                <div>
+                    <label for="remarques" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                        🗣️ Remarques, idées ou problèmes à faire remonter
+                    </label>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-2">Organisation, locaux, vie associative, suggestions pour l'école...</p>
+                    <textarea id="remarques" name="remarques" rows="4" placeholder="Lâche-toi ici, je compile tout ça pour la prochaine réunion."
+                        class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-epitaBlue focus:border-epitaBlue outline-none transition-all resize-y placeholder-slate-400 dark:placeholder-slate-500"></textarea>
+                </div>
+
+                <!-- Bouton Submit -->
+                <div class="pt-2">
+                    <button type="submit" 
+                        class="w-full flex justify-center items-center py-3.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-epitaBlue hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-epitaBlue dark:focus:ring-offset-slate-800 transition-colors">
+                        Envoyer mes retours
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Success Message (Hidden by default) -->
+        <div id="success-message" class="hidden px-6 py-16 sm:px-10 text-center">
+            <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 dark:bg-green-900 mb-6">
+                <svg class="h-8 w-8 text-green-600 dark:text-green-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">C'est noté !</h2>
+            <p class="text-slate-600 dark:text-slate-300">
+                Merci d'avoir pris le temps de remplir ce formulaire. Tes retours vont bien m'aider pour représenter la promo.
+            </p>
+            <button onclick="resetForm()" class="mt-8 text-epitaBlue hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-semibold text-sm transition-colors">
+                ← Renvoyer un autre formulaire
+            </button>
+        </div>
+
+    </main>
+
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Empêche le rechargement de la page
+            
+            // --- CONFIGURATION DISCORD ---
+            // ⚠️ REMPLACE CETTE URL PAR TON URL DE WEBHOOK DISCORD
+            const webhookURL = "TON_LIEN_WEBHOOK_ICI"; 
+            
+            // Récupération des données
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Bouton en mode "chargement"
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = "Envoi en cours...";
+            submitBtn.disabled = true;
+
+            // Construction du message pour Discord
+            const discordMessage = {
+                embeds: [{
+                    title: "📝 Nouveau Retour de la Promo",
+                    color: 22024, // Couleur bleue EPITA approximative
+                    fields: [
+                        { name: "👤 Élève", value: `${data.prenom} ${data.nom}`, inline: true },
+                        { name: "🚀 Matières appréciées", value: data.matieres_aimees || "Rien à signaler" },
+                        { name: "📉 Matières compliquées", value: data.matieres_detestees || "Rien à signaler" },
+                        { name: "🗣️ Remarques", value: data.remarques || "Aucune remarque" }
+                    ],
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            try {
+                // Envoi des données si l'URL est configurée
+                if(webhookURL !== "https://discord.com/api/webhooks/1479140287954686025/gbyeNHWfyTip2kGdpSZZ83Zn0ApOEf4H3emwSOgWv9h9Mz45pXKEn4hWVZQ_rqkDB_lc") {
+                    await fetch(webhookURL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(discordMessage)
+                    });
+                } else {
+                    console.log("⚠️ Le Webhook n'est pas configuré. Voici les données :", data);
+                }
+
+                // Animation de transition vers le message de succès
+                const formContainer = document.getElementById('form-container');
+                const successMessage = document.getElementById('success-message');
+                
+                formContainer.style.opacity = '0';
+                setTimeout(() => {
+                    formContainer.classList.add('hidden');
+                    successMessage.classList.remove('hidden');
+                    successMessage.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        successMessage.style.transition = 'opacity 0.5s ease';
+                        successMessage.style.opacity = '1';
+                    }, 50);
+                }, 300);
+
+            } catch (error) {
+                alert("Une erreur est survenue lors de l'envoi.");
+                console.error(error);
+            } finally {
+                // Restauration du bouton
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        function resetForm() {
+            const formContainer = document.getElementById('form-container');
+            const successMessage = document.getElementById('success-message');
+            const form = document.getElementById('feedbackForm');
+            
+            successMessage.style.opacity = '0';
+            setTimeout(() => {
+                successMessage.classList.add('hidden');
+                formContainer.classList.remove('hidden');
+                form.reset(); // Vide les champs du formulaire
+                formContainer.style.opacity = '0';
+                
+                setTimeout(() => {
+                    formContainer.style.transition = 'opacity 0.5s ease';
+                    formContainer.style.opacity = '1';
+                }, 50);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
