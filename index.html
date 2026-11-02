@@ -3,612 +3,423 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mattéo Dewilde — Software Engineer</title>
-<meta name="description" content="Mattéo Dewilde, computer engineering student at EPITA. Systems programming in C, backend and AI automation. Looking for a 6-month software engineering internship in the US in 2028.">
+<title>Mattéo Dewilde · Software Engineer</title>
+<meta name="description" content="Computer engineering student at EPITA. Systems programming in C, backend and AI automation. Looking for a 6-month software engineering internship in the US in 2028.">
 <link rel="canonical" href="https://matwwwild.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://matwwwild.github.io/">
-<meta property="og:title" content="Mattéo Dewilde — Software Engineer">
+<meta property="og:title" content="Mattéo Dewilde · Software Engineer">
 <meta property="og:description" content="Systems programming in C, backend and AI automation. Looking for a 6-month US internship in 2028.">
 <meta property="og:image" content="https://matwwwild.github.io/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0A1030">
-<link rel="preload" href="fonts/unbounded-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/hanken-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><radialGradient id='g' cx='35%25' cy='30%25'><stop offset='0' stop-color='%23ffffff'/><stop offset='.5' stop-color='%23A9B8FF'/><stop offset='1' stop-color='%233046E0'/></radialGradient></defs><circle cx='16' cy='16' r='14' fill='url(%23g)'/></svg>">
+<meta name="theme-color" content="#FFFFFF" id="theme-color">
+<link rel="preload" href="fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><circle cx='24' cy='8' r='3' fill='%237DD3FC'/><text x='15' y='22' text-anchor='middle' font-family='system-ui,sans-serif' font-size='14' font-weight='600' fill='%23FFFFFF'>MD</text></svg>">
+<script>
+/* Theme and language are set before first paint so nothing flashes. */
+(function () {
+  var d = document.documentElement, t = null, l = null;
+  try { t = localStorage.getItem('theme'); l = localStorage.getItem('lang'); } catch (e) {}
+  if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  if (l !== 'fr' && l !== 'en') l = (navigator.languages || [navigator.language || 'en']).some(function (x) { return /^fr\b/i.test(x); }) ? 'fr' : 'en';
+  d.dataset.theme = t; d.lang = l;
+})();
+</script>
 <style>
-@font-face{font-family:"Unbounded";src:url(fonts/unbounded-latin-wght-normal.woff2) format("woff2");font-weight:200 900;font-display:swap}
-@font-face{font-family:"Hanken Grotesk";src:url(fonts/hanken-grotesk-latin-wght-normal.woff2) format("woff2");font-weight:100 900;font-display:swap}
-@font-face{font-family:"JetBrains Mono";src:url(fonts/jetbrains-mono-latin-wght-normal.woff2) format("woff2");font-weight:100 800;font-display:swap}
+@font-face{font-family:"Schibsted Grotesk";src:url(fonts/schibsted-grotesk-latin-wght-normal.woff2) format("woff2");font-weight:400 900;font-display:swap}
 
+/* Light: white, black, sky blue. Dark: the inverse, black, white, navy. */
 :root{
-  --abyss:#0A1030;
-  --cobalt:#3046E0;
-  --orchid:#B45CF0;
-  --apricot:#FFAE7A;
-  --lagoon:#2ED6C1;
-  --text:#F3F1FF;
-  --soft:#C3C6E6;
-  --faint:#8D92BC;
-  --ink:#0E1330;
-  --display:"Unbounded",system-ui,sans-serif;
-  --body:"Hanken Grotesk",system-ui,sans-serif;
-  --mono:"JetBrains Mono",ui-monospace,monospace;
-  --r-pane:30px;
-  --r-cap:999px;
+  --bg:#FFFFFF; --text:#0A0A0A; --muted:#545454; --faint:#6B6B6B; --line:#E8E8E8; --raised:#FFFFFF;
+  --accent:#7DD3FC;          /* sky blue, used as a fill behind black text */
+  --accent-soft:#E0F4FE;
+  --on-accent:#0A0A0A;
+  --ring:#0A0A0A;
+  --shadow:0 1px 2px rgba(10,10,10,.06),0 10px 28px -10px rgba(10,10,10,.22);
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --ease-drawer:cubic-bezier(.32,.72,0,1);
+  color-scheme:light;
 }
+:root[data-theme="dark"]{
+  --bg:#000000; --text:#FFFFFF; --muted:#ABABAB; --faint:#8F8F8F; --line:#222222; --raised:#0E0E0E;
+  --accent:#1E3A8A;          /* navy, used as a fill behind white text */
+  --accent-soft:#0B1633;
+  --on-accent:#FFFFFF;
+  --ring:#FFFFFF;
+  --shadow:0 1px 2px rgba(0,0,0,.6),0 12px 32px -10px rgba(0,0,0,.9);
+  color-scheme:dark;
+}
+
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;background:var(--abyss)}
-@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
-body{margin:0;color:var(--text);font:400 1.0625rem/1.6 var(--body);-webkit-font-smoothing:antialiased;
-  background:
-    radial-gradient(60vw 50vh at 15% 20%, rgba(48,70,224,.55), transparent 70%),
-    radial-gradient(50vw 50vh at 85% 30%, rgba(180,92,240,.45), transparent 70%),
-    radial-gradient(60vw 60vh at 60% 90%, rgba(255,174,122,.30), transparent 70%),
-    var(--abyss);
-  background-attachment:fixed;
-  padding-bottom:120px}
-.gl body,body.gl{background:var(--abyss)}
-a{color:inherit}
-:focus-visible{outline:2px solid var(--text);outline-offset:4px;border-radius:12px}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:32px}
+@media (pointer:fine){html{overscroll-behavior:none}}
+body{margin:0;background:var(--bg);color:var(--text);font:400 1rem/1.65 "Schibsted Grotesk",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-webkit-tap-highlight-color:transparent}
+::selection{background:var(--accent);color:var(--on-accent)}
+a{color:inherit;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:4px}
+:focus-visible{outline:2px solid var(--ring);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:16px;top:-56px;padding:8px 12px;background:var(--raised);border:1px solid var(--line);border-radius:8px;z-index:40}
+.skip:focus{top:12px}
+button{font:inherit;color:inherit}
+p,li,dd{text-wrap:pretty}
+h1,h2,h3{text-wrap:balance}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block;pointer-events:none}
-.page{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+/* page grid: content on the left, section menu on the right */
+.layout{display:grid;grid-template-columns:minmax(0,640px) 180px;gap:96px;justify-content:center;padding:0 24px}
 
-/* glass: CSS fallback (no WebGL). With WebGL the shader draws the material. */
-[data-glass]{position:relative;border-radius:var(--r-pane);
-  background:rgba(14,19,52,.45);
-  -webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -1px 0 rgba(255,255,255,.08),0 24px 50px -24px rgba(0,0,0,.6)}
-[data-glass="cap"],[data-glass="cap-light"]{border-radius:var(--r-cap)}
-[data-glass="cap-light"]{background:rgba(245,243,255,.82);color:var(--ink)}
-body.gl [data-glass]{background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
-body.gl [data-glass="cap-light"]{color:var(--ink)}
-/* the dock floats above the page text, so it needs a real backdrop to stay legible */
-[data-glass="dock"],body.gl [data-glass="dock"]{border-radius:var(--r-cap);background:rgba(12,16,44,.52);
-  -webkit-backdrop-filter:blur(18px) saturate(190%) brightness(1.05);backdrop-filter:blur(18px) saturate(190%) brightness(1.05);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -1px 0 rgba(255,255,255,.12),inset 0 0 0 1px rgba(255,255,255,.08),0 18px 40px -16px rgba(0,0,0,.7)}
+/* side menu (desktop) */
+.side{position:sticky;top:0;align-self:start;height:100vh;padding-top:86px}
+.side ul{list-style:none;margin:0;padding:0}
+.side a.nav{display:block;padding:7px 12px;border-radius:999px;text-decoration:none;color:var(--muted);
+  transition:background-color .15s var(--ease-out),color .15s var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.side a.nav:hover{color:var(--text);background:var(--accent-soft)}}
+.side a.nav[aria-current="true"]{background:var(--accent);color:var(--on-accent)}
+.side-head,.scrim,.menu-open{display:none}
 
-/* hero */
-.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:12vh 0 18vh}
-.hero h1{font:800 clamp(2.9rem,15vw,11.5rem)/0.88 var(--display);letter-spacing:-0.045em;margin:0 0 4vh;color:var(--text)}
-.hero h1 .ln{display:block;width:max-content}
-body.gl.text-ready .hero h1 .ln{color:transparent}
-.hero .lede{font-size:clamp(1.15rem,2vw,1.4rem);line-height:1.45;color:var(--soft);max-width:36ch;margin:0 0 36px}
-.hero .lede b{color:var(--text);font-weight:600}
-.row{display:flex;flex-wrap:wrap;gap:12px}
-.cap{display:inline-flex;align-items:center;gap:10px;padding:15px 24px;font-weight:600;text-decoration:none;color:var(--text);cursor:pointer;border:0;font:600 1rem var(--body);transition:transform .25s cubic-bezier(.2,.8,.2,1.3)}
-.cap:active{transform:scale(.96)}
-.hint{margin-top:5vh;color:var(--faint);font-size:.95rem}
-@media (hover:none){.hint .mouse{display:none}}
-@media (hover:hover){.hint .touch{display:none}}
+/* floating controls, bottom right */
+.dock{position:fixed;right:max(20px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom));z-index:30;display:flex;gap:8px}
+.ctl{display:inline-flex;align-items:center;justify-content:center;height:44px;min-width:44px;padding:0 14px;border-radius:999px;
+  border:1px solid var(--line);background:var(--raised);box-shadow:var(--shadow);cursor:pointer;touch-action:manipulation;
+  font-size:.875rem;font-weight:600;letter-spacing:.02em;transition:transform .12s var(--ease-out),border-color .15s var(--ease-out)}
+.ctl.icon{padding:0;width:44px}
+.ctl:active{transform:scale(.96)}
+@media (hover:hover) and (pointer:fine){.ctl:hover{border-color:var(--faint)}}
+.ctl svg{display:block}
+.ctl .sun{display:none}
+:root[data-theme="dark"] .ctl .sun{display:block}
+:root[data-theme="dark"] .ctl .moon{display:none}
 
-/* sections */
-section{padding:12vh 0 0}
-.head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:28px}
-section h2{font:700 clamp(1.8rem,4.2vw,3.1rem)/1.02 var(--display);letter-spacing:-0.03em;margin:0;max-width:16ch}
-.head p{margin:0;color:var(--soft);max-width:36ch}
-@media (max-width:760px){.head{flex-direction:column;align-items:start}}
+/* content */
+main{padding:88px 0 140px;min-width:0}
+.intro h1{font-size:clamp(2.125rem,6vw,2.75rem);line-height:1.08;letter-spacing:-.03em;font-weight:600;margin:0 0 8px;text-wrap:balance}
+.role{color:var(--muted);margin:0 0 28px;font-size:1.0625rem}
+.intro p{margin:0 0 16px;max-width:62ch;text-wrap:pretty}
+.status{display:flex;align-items:flex-start;gap:10px;margin:20px 0 28px;color:var(--muted);font-size:.9375rem}
+.status i{width:8px;height:8px;margin-top:.6em;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);flex:none}
+:root[data-theme="dark"] .status i{background:#3B63D9}
+.links{display:flex;flex-wrap:wrap;gap:10px 22px;padding:0;margin:0;list-style:none}
+.links a{font-weight:500}
+@media (hover:hover) and (pointer:fine){main a:hover{text-decoration-color:currentColor}}
 
-.pane{padding:clamp(22px,3.4vw,44px)}
-.pane h3{font:700 clamp(1.25rem,2.2vw,1.6rem)/1.15 var(--display);letter-spacing:-0.02em;margin:0 0 6px}
-.pane .sub{color:var(--apricot);font-weight:600;margin:0 0 18px}
-.pane p{margin:0 0 14px;max-width:62ch;color:var(--soft)}
-.pane ul{margin:0;padding-left:1.15em;max-width:64ch}
-.pane li{margin-bottom:8px;color:var(--text)}
-.pane li::marker{color:var(--lagoon)}
+section{padding-top:72px}
+section h2{font-size:1.25rem;line-height:1.3;font-weight:600;letter-spacing:-.015em;margin:0 0 24px}
+.rows{list-style:none;margin:0;padding:0}
+.rows>li{display:grid;grid-template-columns:150px 1fr;gap:4px 28px}
+.rows>li+li{margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
+.when{color:var(--faint);font-size:.875rem;line-height:1.65rem;white-space:nowrap}
+.rows h3{font-size:1rem;font-weight:600;margin:0;letter-spacing:-.005em}
+.at{color:var(--muted);margin:0 0 8px}
+.rows p{margin:0 0 8px;max-width:62ch;text-wrap:pretty}
+.rows ul{margin:0;padding-left:1.1em;color:var(--muted)}
+.rows ul li{margin-bottom:4px}
+.rows ul li::marker{color:var(--faint)}
+.stack{color:var(--faint);font-size:.875rem;margin-top:12px}
+.skills{display:grid;grid-template-columns:150px 1fr;gap:10px 28px;margin:0}
+.skills dt{color:var(--faint);font-size:.875rem;line-height:1.65rem}
+.skills dd{margin:0}
+.lead{margin:0 0 16px;max-width:62ch}
+footer{padding-top:72px;color:var(--faint);font-size:.875rem}
 
-.now{display:grid;grid-template-columns:.9fr 1.3fr;gap:clamp(20px,4vw,48px)}
-@media (max-width:820px){.now{grid-template-columns:1fr}}
-.tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:20px 0 0}
-.tags li{margin:0;padding:5px 12px;border-radius:99px;font-size:.88rem;color:var(--soft);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}
+/* tablet and phone: the side menu becomes a drawer from the right */
+@media (max-width:900px){
+  .layout{display:block;padding:0 20px}
+  main{padding-top:24px}
+  .topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;height:60px;
+    margin:0 -20px;padding:8px 20px;background:color-mix(in srgb,var(--bg) 90%,transparent);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+  .topbar .who{font-weight:600;text-decoration:none;letter-spacing:-.01em}
+  .menu-open{display:inline-flex}
+  .side{position:fixed;top:0;right:0;bottom:0;height:auto;align-self:auto;width:min(300px,84vw);z-index:50;padding:0 12px 24px;
+    background:var(--raised);border-left:1px solid var(--line);box-shadow:var(--shadow);
+    transform:translateX(100%);visibility:hidden;
+    transition:transform .32s var(--ease-drawer),visibility 0s linear .32s;overscroll-behavior:contain;overflow-y:auto}
+  .side[data-open]{transform:none;visibility:visible;transition:transform .32s var(--ease-drawer),visibility 0s}
+  .side-head{display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 0 0 12px;margin-bottom:8px}
+  .side-head span{font-weight:600}
+  .side a.nav{padding:12px 14px;font-size:1.0625rem;color:var(--text)}
+  .scrim{display:block;position:fixed;inset:0;z-index:45;background:rgba(0,0,0,.32);opacity:0;visibility:hidden;
+    transition:opacity .25s var(--ease-out),visibility 0s linear .25s}
+  .scrim[data-open]{opacity:1;visibility:visible;transition:opacity .25s var(--ease-out),visibility 0s}
+  .rows>li,.skills{grid-template-columns:1fr}
+  .rows>li{gap:2px}
+  .skills{gap:0}.skills dd{margin-bottom:12px}
+}
+@media (min-width:901px){.topbar{display:none}}
 
-.work{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-@media (max-width:860px){.work{grid-template-columns:1fr}}
-.work .pane{display:flex;flex-direction:column}
-.work .note{margin-top:auto;padding-top:18px;color:var(--faint);font-size:.92rem}
-
-/* terminal */
-.term{padding:0;overflow:hidden;font:400 .95rem/1.6 var(--mono)}
-.term .bar{display:flex;align-items:center;gap:8px;padding:16px 22px;color:var(--faint);font-size:.82rem;border-bottom:1px solid rgba(255,255,255,.09)}
-.term .bar i{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.22)}
-.term .bar span{margin-left:8px}
-.out{height:320px;overflow-y:auto;padding:18px 24px 6px}
-.out p{margin:0;white-space:pre-wrap;word-break:break-word}
-.p{color:#9DB3FF}.ok{color:var(--lagoon)}.dim{color:var(--faint)}
-.out a{color:#9DB3FF}
-.term form{display:flex;gap:10px;padding:8px 24px 20px}
-.term input{flex:1;background:transparent;border:0;color:var(--text);font:inherit;padding:2px 0;caret-color:var(--apricot)}
-.term input:focus{outline:none}
-.term input::placeholder{color:var(--faint)}
-
-/* timeline is a real sequence, so it gets dates as structure */
-.tl{list-style:none;margin:0;padding:0}
-.tl li{display:grid;grid-template-columns:170px 1fr;gap:24px;padding:20px 0;border-top:1px solid rgba(255,255,255,.1)}
-.tl li:first-child{border-top:0;padding-top:0}
-.tl time{color:var(--apricot);font-variant-numeric:tabular-nums;font-weight:600}
-.tl h3{font:600 1.1rem/1.3 var(--body);letter-spacing:0;margin:0}
-.tl p{margin:4px 0 0}
-@media (max-width:600px){.tl li{grid-template-columns:1fr;gap:4px}}
-
-.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:28px 36px}
-.skills h3{font:600 1rem var(--body);letter-spacing:0;margin:0 0 6px;color:var(--text)}
-.skills p{margin:0}
-
-.contact{padding:16vh 0 4vh;text-align:left}
-.contact h2{font-size:clamp(2.4rem,7vw,5.6rem);max-width:12ch;margin-bottom:24px}
-.contact p{color:var(--soft);max-width:44ch;margin:0 0 32px;font-size:1.15rem}
-footer{color:var(--faint);font-size:.9rem;padding:6vh 0 2vh}
-
-/* dock */
-.dock{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:5;display:flex;gap:2px;padding:7px}
-.dock a{display:block;padding:11px 18px;border-radius:99px;text-decoration:none;font-weight:600;font-size:.95rem;color:var(--text);transition:background .2s}
-.dock a:hover{background:rgba(255,255,255,.1)}
-.dock a[aria-current="true"]{background:rgba(255,255,255,.16)}
-@media (max-width:520px){.dock{left:12px;right:12px;transform:none;justify-content:space-between}.dock a{padding:11px 12px;font-size:.88rem}}
-
-@media (prefers-reduced-transparency: reduce){
-  [data-glass]{background:rgba(14,19,52,.9)}
+@media (prefers-reduced-motion:reduce){
+  .side,.side[data-open]{transform:none;transition:opacity .15s linear,visibility 0s;opacity:0}
+  .side[data-open]{opacity:1}
+  .ctl,.side a.nav{transition:none}
 }
 </style>
 </head>
 <body>
-<canvas id="gl" aria-hidden="true"></canvas>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
 
-<nav class="dock" data-glass="dock" aria-label="Sections">
-  <a href="#now">Now</a>
-  <a href="#work">Work</a>
-  <a href="#shell">Shell</a>
-  <a href="#contact">Contact</a>
-</nav>
+<div class="layout">
+  <div class="col">
+    <div class="topbar">
+      <a class="who" href="#top" translate="no">Mattéo Dewilde</a>
+      <button class="ctl menu-open" id="menu-open" aria-expanded="false" aria-controls="side" data-i18n="menu">Menu</button>
+    </div>
+<main id="main">
+  <div class="intro" id="top">
+    <h1 translate="no">Mattéo Dewilde</h1>
+    <p class="role" data-i18n="role">Software engineering student at EPITA, Paris</p>
+    <p data-i18n="intro1">I work close to the system in C and build backends and automation that real teams use every day. I'm currently an AI automation engineer intern at Keyweo in Barcelona.</p>
+    <p class="status"><i aria-hidden="true"></i><span data-i18n="status">Looking for a 6-month software engineering internship in the US, starting 2028</span></p>
+    <ul class="links">
+      <li><a href="mailto:matteo.dewilde1@gmail.com" data-i18n="link.email">Email</a></li>
+      <li><a href="https://www.linkedin.com/in/matteo-dewilde" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://github.com/matwwwild" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="resume.pdf" data-i18n="link.resume">Resume (PDF)</a></li>
+    </ul>
+  </div>
 
-<main class="page">
-  <header class="hero" id="top">
-    <h1><span class="ln">Mattéo</span><span class="ln">Dewilde</span></h1>
-    <p class="lede">I write <b>C close to the metal</b> and ship <b>automation that runs a business</b>. Computer engineering student at EPITA, looking for a 6-month software internship in the US in 2028.</p>
-    <div class="row">
-      <a class="cap" data-glass="cap-light" data-tint="0.84" href="resume.pdf" download>Download resume</a>
-      <a class="cap" data-glass="cap" data-tint="0.22" href="mailto:matteo.dewilde1@gmail.com">Email me</a>
-    </div>
-    <p class="hint"><span class="mouse">Move your cursor: the droplets are real lenses.</span><span class="touch">Drag across the screen: the droplets are real lenses.</span></p>
-  </header>
-
-  <section id="now" aria-labelledby="now-h">
-    <div class="head">
-      <h2 id="now-h">What I'm building right now</h2>
-      <p>My current internship, October 2026 to January 2027, in Barcelona.</p>
-    </div>
-    <div class="pane now" data-glass="pane" data-tint="0.52">
-      <div>
-        <h3>AI Automation Engineer Intern</h3>
-        <p class="sub">Keyweo, Barcelona</p>
-        <p>Keyweo is a digital marketing agency. I build the tools that turn incoming leads into qualified conversations with as little manual work as possible.</p>
-        <ul class="tags" aria-label="Tech used">
-          <li>PHP 8.4</li><li>MariaDB</li><li>Meta WhatsApp API</li><li>Google Ads</li><li>GitHub Actions</li><li>Claude Code</li>
-        </ul>
-      </div>
-      <ul>
-        <li>Building a lead-qualification CRM from scratch in PHP 8.4 and MariaDB, mobile-first for advisors working in the field.</li>
-        <li>Designed a 0–100 lead-scoring model built to feed conversion data back into Google Ads.</li>
-        <li>Automated WhatsApp (Meta Cloud API) and email follow-ups with configurable rules and delays.</li>
-        <li>GitHub CI where tests must pass before any merge, with GDPR compliance built in from the start.</li>
-        <li>Develop with Claude Code daily, guided by clean-code conventions I documented for the team.</li>
-      </ul>
-    </div>
+  <section id="experience" aria-labelledby="h-exp">
+    <h2 id="h-exp" data-i18n="nav.experience">Experience</h2>
+    <ol class="rows">
+      <li>
+        <div class="when"><time datetime="2026-10">Oct 2026</time> – <time datetime="2027-01">Jan 2027</time></div>
+        <div>
+          <h3 data-i18n="keyweo.title">AI Automation Engineer Intern</h3>
+          <p class="at"><span translate="no">Keyweo</span>, <span data-i18n="barcelona">Barcelona</span></p>
+          <ul>
+            <li data-i18n="keyweo.1">Building a lead-qualification CRM from scratch in PHP 8.4 and MariaDB, mobile-first for advisors in the field.</li>
+            <li data-i18n="keyweo.2">Designed a 0–100 lead-scoring model built to feed conversion data back into Google Ads.</li>
+            <li data-i18n="keyweo.3">Automated WhatsApp (Meta Cloud API) and email follow-ups with configurable rules and delays.</li>
+            <li data-i18n="keyweo.4">GitHub CI with mandatory tests before merge, GDPR compliance by design.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="when"><time datetime="2023-09">Sep 2023</time> – <time datetime="2026-06">Jun 2026</time></div>
+        <div>
+          <h3 data-i18n="amb.title">Student Ambassador, Communication Staff</h3>
+          <p class="at"><span translate="no">EPITA</span>, Le Kremlin-Bicêtre</p>
+          <p data-i18n="amb.1">Represented the school at fairs and open days, helped organize events and mentored first- and second-year students.</p>
+        </div>
+      </li>
+      <li>
+        <div class="when"><time datetime="2024-07">Jul 2024</time></div>
+        <div>
+          <h3 data-i18n="gym.title">Front Desk and Floor Staff</h3>
+          <p class="at" data-i18n="gym.at">Climbing gym and restaurant, Massy</p>
+          <p data-i18n="gym.1">Customer service, sales and table service during peak hours.</p>
+        </div>
+      </li>
+    </ol>
   </section>
 
-  <section id="work" aria-labelledby="work-h">
-    <div class="head">
-      <h2 id="work-h">Things I've built</h2>
-      <p>Team projects from EPITA. The code stays private under school rules; I'm happy to walk through it live.</p>
-    </div>
-    <div class="work">
-      <article class="pane" data-glass="pane" data-tint="0.52">
-        <h3>42sh</h3>
-        <p class="sub">A POSIX shell in C, team of 4, January 2026</p>
-        <p>A full Unix command interpreter that follows the POSIX standard. We wrote every stage between the keystroke and the running process.</p>
-        <ul>
-          <li>Lexer, recursive-descent parser, AST evaluator and built-in commands.</li>
-          <li>Processes with fork, exec and wait; redirections, pipelines, control flow.</li>
-          <li>Code reviews on Git, Criterion tests, leaks hunted with Valgrind and AddressSanitizer.</li>
-        </ul>
-        <p class="note">The terminal below is a tribute to it.</p>
-      </article>
-      <article class="pane" data-glass="pane" data-tint="0.52">
-        <h3>Access Dev Lab</h3>
-        <p class="sub">An IDE you control by voice, May to July 2026</p>
-        <p>An inclusive development environment for programmers who cannot use their upper limbs. We started by interviewing developers with motor impairments.</p>
-        <ul>
-          <li>REST API in Java 21 and Quarkus, with JWT authentication and owner/admin authorization.</li>
-          <li>File-system service hardened against path traversal, with structured logging.</li>
-          <li>PostgreSQL and Docker; test suites brought to 135/135 before the final defense.</li>
-        </ul>
-        <p class="note">Java 21 · Quarkus · PostgreSQL · Docker</p>
-      </article>
-    </div>
+  <section id="projects" aria-labelledby="h-proj">
+    <h2 id="h-proj" data-i18n="nav.projects">Projects</h2>
+    <ol class="rows">
+      <li>
+        <div class="when"><time datetime="2026-05">May 2026</time> – <time datetime="2026-07">Jul 2026</time></div>
+        <div>
+          <h3 data-i18n="adl.title">Access Dev Lab, a voice-controlled IDE</h3>
+          <p data-i18n="adl.1">An inclusive development environment for programmers who cannot use their upper limbs. We started by interviewing developers with motor impairments.</p>
+          <ul>
+            <li data-i18n="adl.2">REST API in Java 21 and Quarkus with JWT authentication and owner/admin authorization.</li>
+            <li data-i18n="adl.3">File-system service hardened against path traversal, with structured logging.</li>
+            <li data-i18n="adl.4">PostgreSQL and Docker; test suites brought to 135/135 before the final defense.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="when"><time datetime="2026-01">Jan 2026</time></div>
+        <div>
+          <h3 data-i18n="sh.title">42sh, a POSIX shell in C</h3>
+          <p data-i18n="sh.1">A Unix command interpreter written from scratch by a team of four, following the POSIX standard.</p>
+          <ul>
+            <li data-i18n="sh.2">Lexer, recursive-descent parser, AST evaluator and built-in commands.</li>
+            <li data-i18n="sh.3">Processes with fork, exec and wait; redirections, pipelines and control flow.</li>
+            <li data-i18n="sh.4">Code reviews on Git, Criterion tests, leaks tracked with Valgrind and AddressSanitizer.</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+    <p class="stack" data-i18n="private">School projects stay private under EPITA rules. I'm happy to walk through the code in an interview.</p>
   </section>
 
-  <section id="shell" aria-labelledby="shell-h">
-    <div class="head">
-      <h2 id="shell-h">Ask the shell</h2>
-      <p>Type <code>help</code> to see the commands. It's the fastest way to get the short version of me.</p>
-    </div>
-    <div class="pane term" data-glass="pane" data-tint="0.70" aria-label="Interactive terminal">
-      <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>matteo@42sh: ~</span></div>
-      <div class="out" id="out" role="log" aria-live="polite"></div>
-      <form id="cmd" autocomplete="off">
-        <label for="in" class="p">$</label>
-        <input id="in" spellcheck="false" placeholder="type help" aria-label="Terminal command">
-      </form>
-    </div>
+  <section id="education" aria-labelledby="h-edu">
+    <h2 id="h-edu" data-i18n="nav.education">Education</h2>
+    <ol class="rows">
+      <li>
+        <div class="when"><time datetime="2023">2023</time> – <time datetime="2028">2028</time></div>
+        <div>
+          <h3 data-i18n="epita.title">Master of Engineering in Computer Science</h3>
+          <p class="at"><span translate="no">EPITA</span>, Paris</p>
+          <p data-i18n="epita.1">Intensive C/Unix bootcamp, algorithms, object-oriented programming, databases, web, networking and machine learning. Upcoming major in software engineering and information systems (SIGL).</p>
+        </div>
+      </li>
+    </ol>
   </section>
 
-  <section id="path" aria-labelledby="path-h">
-    <div class="head">
-      <h2 id="path-h">How I got here</h2>
-      <p>Most recent first.</p>
-    </div>
-    <div class="pane" data-glass="pane" data-tint="0.52">
-      <ol class="tl">
-        <li><time>Oct 2026 – Jan 2027</time><div><h3>AI Automation Engineer Intern, Keyweo</h3><p>Barcelona, Spain. Lead-qualification CRM, scoring and automated follow-ups.</p></div></li>
-        <li><time>Sep 2023 – Jun 2026</time><div><h3>Student Ambassador, EPITA</h3><p>Represented the school at fairs and open days, organized events, mentored younger students.</p></div></li>
-        <li><time>Jul 2024</time><div><h3>Front desk and floor staff</h3><p>Climbing gym and restaurant, Massy. Customer service and sales during peak hours.</p></div></li>
-        <li><time>2023 – 2028</time><div><h3>Master of Engineering in Computer Science, EPITA</h3><p>Paris. C/Unix bootcamp, algorithms, OOP, databases, web, networking, machine learning. Upcoming major in software engineering (SIGL).</p></div></li>
-      </ol>
-    </div>
+  <section id="skills" aria-labelledby="h-skills">
+    <h2 id="h-skills" data-i18n="nav.skills">Skills</h2>
+    <dl class="skills">
+      <dt data-i18n="sk.lang">Languages</dt><dd translate="no">C, Java, Python, C++, SQL, TypeScript, PHP, Go, Bash</dd>
+      <dt data-i18n="sk.back">Backend</dt><dd translate="no">Quarkus, REST, JWT, PostgreSQL, MariaDB, Node.js, React</dd>
+      <dt data-i18n="sk.tools">Tools</dt><dd translate="no">Linux, Git, GitHub Actions, Docker, Make, GDB, Valgrind</dd>
+      <dt data-i18n="sk.test">Testing</dt><dd translate="no">Criterion, JUnit, Jest</dd>
+      <dt data-i18n="sk.ai">AI</dt><dd data-i18n="sk.ai.v">LLM-assisted development (Claude Code), workflow automation</dd>
+      <dt data-i18n="sk.spoken">Spoken</dt><dd data-i18n="sk.spoken.v">French (native), English (professional, B2/C1)</dd>
+    </dl>
   </section>
 
-  <section id="skills" aria-labelledby="skills-h">
-    <div class="head">
-      <h2 id="skills-h">Toolbox</h2>
-      <p>Roughly in order of comfort.</p>
-    </div>
-    <div class="pane skills" data-glass="pane" data-tint="0.52">
-      <div><h3>Languages</h3><p>C, Java, Python, C++, SQL, JavaScript and TypeScript, PHP, Go, Bash</p></div>
-      <div><h3>Backend and data</h3><p>Quarkus, REST APIs, JWT, PostgreSQL, MariaDB, Node.js, React</p></div>
-      <div><h3>Tools</h3><p>Linux, Git, GitHub Actions, Docker, Make, GDB, Valgrind, AddressSanitizer</p></div>
-      <div><h3>Testing</h3><p>Criterion, JUnit, Jest</p></div>
-      <div><h3>AI</h3><p>LLM-assisted development with Claude Code, workflow automation, API integrations</p></div>
-      <div><h3>Spoken</h3><p>French (native), English (professional, B2/C1)</p></div>
-    </div>
+  <section id="contact" aria-labelledby="h-contact">
+    <h2 id="h-contact" data-i18n="nav.contact">Contact</h2>
+    <p class="lead" data-i18n="contact.1">The quickest way to reach me is email. I usually reply within a day.</p>
+    <ul class="links">
+      <li><a href="mailto:matteo.dewilde1@gmail.com" translate="no">matteo.dewilde1@gmail.com</a></li>
+      <li><a href="https://www.linkedin.com/in/matteo-dewilde" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="resume.pdf" data-i18n="link.resume">Resume (PDF)</a></li>
+    </ul>
   </section>
-
-  <section class="contact" id="contact" aria-labelledby="contact-h">
-    <h2 id="contact-h">Let's talk about 2028.</h2>
-    <p>I'm looking for a 6-month software engineering internship in the United States, in backend, systems or AI automation. Email is the fastest way to reach me.</p>
-    <div class="row">
-      <a class="cap" data-glass="cap-light" data-tint="0.84" href="mailto:matteo.dewilde1@gmail.com">matteo.dewilde1@gmail.com</a>
-      <a class="cap" data-glass="cap" data-tint="0.22" href="https://www.linkedin.com/in/matteo-dewilde" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="cap" data-glass="cap" data-tint="0.22" href="https://github.com/matwwwild" target="_blank" rel="noopener">GitHub</a>
-      <a class="cap" data-glass="cap" data-tint="0.22" href="resume.pdf" download>Resume (PDF)</a>
-    </div>
-  </section>
-
-  <footer>© 2026 Mattéo Dewilde. The glass is a hand-written WebGL shader: every lens refracts the scene behind it in real time.</footer>
 </main>
+    <footer>© 2026 Mattéo Dewilde</footer>
+  </div>
+
+  <aside class="side" id="side" aria-label="Sections">
+    <div class="side-head">
+      <span data-i18n="sections">Sections</span>
+      <button class="ctl icon" id="menu-close" data-i18n-label="close" aria-label="Close menu">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9m0-9-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <ul>
+      <li><a class="nav" href="#experience" data-i18n="nav.experience">Experience</a></li>
+      <li><a class="nav" href="#projects" data-i18n="nav.projects">Projects</a></li>
+      <li><a class="nav" href="#education" data-i18n="nav.education">Education</a></li>
+      <li><a class="nav" href="#skills" data-i18n="nav.skills">Skills</a></li>
+      <li><a class="nav" href="#contact" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+  </aside>
+</div>
+<div class="scrim" id="scrim"></div>
+
+<div class="dock">
+  <button class="ctl" id="lang-toggle" aria-label="Passer en français"><span id="lang-code">EN</span></button>
+  <button class="ctl icon" id="theme-toggle" aria-label="Switch to dark theme">
+    <svg class="moon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+    <svg class="sun" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </button>
+</div>
 
 <script>
-/* ---------- terminal ---------- */
 (() => {
-  const out = document.getElementById('out'), form = document.getElementById('cmd'), input = document.getElementById('in');
-  const C = {
-    help: () => ['<span class="ok">Commands</span>','  whoami     who I am','  now        what I\'m working on','  projects   things I\'ve built','  skills     languages and tools','  resume     download my resume','  contact    how to reach me','  clear      clear the screen'],
-    whoami: () => ['Mattéo Dewilde','Computer engineering student @ EPITA (Paris), class of 2028.','Strongest language: C. Currently an AI automation intern in Barcelona.','<span class="dim">Looking for a 6-month US internship in 2028.</span>'],
-    now: () => ['AI Automation Engineer Intern @ Keyweo (Oct 2026 – Jan 2027)','  lead-qualification CRM · PHP 8.4 · MariaDB','  0–100 lead scoring → Google Ads','  WhatsApp + email follow-ups, CI with mandatory tests'],
-    projects: () => ['42sh/            POSIX shell in C: lexer, parser, AST, built-ins','access-dev-lab/  voice-controlled IDE · Java 21 · Quarkus'],
-    ls: () => C.projects(),
-    skills: () => ['C  Java  Python  C++  SQL  TypeScript  PHP  Go  Bash','Quarkus  PostgreSQL  Docker  Linux  Git  GDB  Valgrind'],
-    resume: () => { const a = document.createElement('a'); a.href = 'resume.pdf'; a.download = ''; a.click(); return ['<span class="ok">Downloading resume.pdf</span>']; },
-    contact: () => ['email     <a href="mailto:matteo.dewilde1@gmail.com">matteo.dewilde1@gmail.com</a>','linkedin  <a href="https://www.linkedin.com/in/matteo-dewilde" target="_blank" rel="noopener">linkedin.com/in/matteo-dewilde</a>','github    <a href="https://github.com/matwwwild" target="_blank" rel="noopener">github.com/matwwwild</a>'],
-    sudo: () => ['Nice try. Hire me first.'],
-    clear: () => { out.innerHTML = ''; return []; }
+  const FR = {
+    'skip':'Aller au contenu', 'menu':'Menu', 'close':'Fermer le menu', 'toTheme.dark':'Passer au thème sombre', 'toTheme.light':'Passer au thème clair', 'toLang':'Switch to English', 'sections':'Sections',
+    'nav.experience':'Expérience', 'nav.projects':'Projets', 'nav.education':'Formation', 'nav.skills':'Compétences', 'nav.contact':'Contact',
+    'theme':'Thème', 'light':'Clair', 'dark':'Sombre', 'language':'Langue',
+    'role':'Étudiant ingénieur en informatique à l’EPITA, Paris',
+    'intro1':'Je travaille au plus près du système en C, et je développe des backends et des automatisations utilisés chaque jour par de vraies équipes. Je suis actuellement stagiaire ingénieur en automatisation IA chez Keyweo, à Barcelone.',
+    'status':'Je recherche un stage de 6 mois en développement logiciel aux États-Unis, à partir de 2028',
+    'link.email':'Email', 'link.resume':'CV en anglais (PDF)',
+    'keyweo.title':'Stagiaire ingénieur en automatisation IA', 'barcelona':'Barcelone',
+    'keyweo.1':'Développement d’un CRM de qualification de leads en PHP 8.4 et MariaDB, pensé mobile d’abord pour les conseillers sur le terrain.',
+    'keyweo.2':'Conception d’un score de leads sur 100, destiné à alimenter les conversions Google Ads.',
+    'keyweo.3':'Relances automatisées par WhatsApp (API Meta Cloud) et email, avec règles et délais paramétrables.',
+    'keyweo.4':'CI GitHub avec tests obligatoires avant chaque merge, conformité RGPD dès la conception.',
+    'amb.title':'Ambassadeur étudiant, Staff Communication',
+    'amb.1':'Représentation de l’école sur les salons et journées portes ouvertes, organisation d’événements et tutorat des étudiants de 1re et 2e année.',
+    'gym.title':'Accueil et service en salle', 'gym.at':'Salle d’escalade et restaurant, Massy',
+    'gym.1':'Accueil client, vente et service en salle pendant les heures d’affluence.',
+    'adl.title':'Access Dev Lab, un IDE piloté à la voix',
+    'adl.1':'Un environnement de développement inclusif pour les développeurs privés de l’usage des membres supérieurs. Nous avons commencé par interroger des développeurs en situation de handicap moteur.',
+    'adl.2':'API REST en Java 21 et Quarkus, avec authentification JWT et autorisations propriétaire/administrateur.',
+    'adl.3':'Service de fichiers protégé contre le path traversal, avec journalisation structurée.',
+    'adl.4':'PostgreSQL et Docker ; suites de tests amenées à 135/135 avant la soutenance.',
+    'sh.title':'42sh, un shell POSIX en C',
+    'sh.1':'Un interpréteur de commandes Unix écrit de zéro à quatre, conforme à la norme POSIX.',
+    'sh.2':'Lexer, parseur récursif descendant, évaluateur d’AST et commandes intégrées.',
+    'sh.3':'Processus avec fork, exec et wait ; redirections, pipelines et structures de contrôle.',
+    'sh.4':'Code reviews sur Git, tests Criterion, fuites mémoire traquées avec Valgrind et AddressSanitizer.',
+    'private':'Les projets d’école restent privés selon les règles de l’EPITA. Je présente volontiers le code en entretien.',
+    'epita.title':'Diplôme d’ingénieur en informatique',
+    'epita.1':'Piscine C/Unix intensive, algorithmique, programmation orientée objet, bases de données, web, réseaux et machine learning. Majeure à venir : génie logiciel et systèmes d’information (SIGL).',
+    'sk.lang':'Langages', 'sk.back':'Backend', 'sk.tools':'Outils', 'sk.test':'Tests', 'sk.ai':'IA',
+    'sk.ai.v':'Développement assisté par LLM (Claude Code), automatisation de workflows',
+    'sk.spoken':'Langues', 'sk.spoken.v':'Français (natif), anglais (professionnel, B2/C1)',
+    'contact.1':'Le plus simple pour me joindre est l’email. Je réponds en général sous 24 heures.'
   };
-  const esc = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const line = h => { const p = document.createElement('p'); p.innerHTML = h; out.appendChild(p); };
-  const run = raw => {
-    const n = raw.trim().split(/\s+/)[0].toLowerCase();
-    line('<span class="p">$</span> ' + esc(raw)); if (!n) return;
-    (C[n] ? C[n]() : ['42sh: ' + esc(n) + ': command not found. Try <span class="ok">help</span>.']).forEach(line);
-    line('&nbsp;'); out.scrollTop = out.scrollHeight;
+  const META = {
+    en: { title: 'Mattéo Dewilde · Software Engineer', desc: document.querySelector('meta[name=description]').content },
+    fr: { title: 'Mattéo Dewilde · Ingénieur logiciel', desc: 'Étudiant ingénieur à l’EPITA. Programmation système en C, backend et automatisation IA. Je recherche un stage de 6 mois aux États-Unis en 2028.' }
   };
-  form.addEventListener('submit', e => { e.preventDefault(); run(input.value); input.value = ''; });
-  out.addEventListener('click', () => input.focus());
-  run('whoami'); line('<span class="dim">Type help to see what else I can do.</span>');
-})();
+  const EN = { 'toTheme.dark':'Switch to dark theme', 'toTheme.light':'Switch to light theme', 'toLang':'Passer en français', 'close':'Close menu' };
+  const root = document.documentElement;
+  const nodes = [...document.querySelectorAll('[data-i18n]')];
+  nodes.forEach(n => n.dataset.en = n.textContent);       // English stays the source text in the HTML
+  const times = [...document.querySelectorAll('.when time')];
+  const BG = { light: '#FFFFFF', dark: '#000000' };
+  const save = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+  const T = k => (root.lang === 'fr' ? FR : EN)[k];
 
-/* ---------- liquid glass renderer ---------- */
-(() => {
-  const canvas = document.getElementById('gl');
-  const gl = canvas.getContext('webgl', { antialias: false, premultipliedAlpha: false, alpha: false, powerPreference: 'high-performance' });
-  if (!gl) return;                       // CSS fallback stays in place
+  const langBtn = document.getElementById('lang-toggle'), themeBtn = document.getElementById('theme-toggle');
 
-  const MAX = 16;
-  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const reduceTransp = matchMedia('(prefers-reduced-transparency: reduce)');
-  const mobile = matchMedia('(max-width: 760px)').matches || matchMedia('(hover: none)').matches;
-
-  const VS = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
-
-  /* Scene: aurora + typography, refracted by 3D liquid droplets */
-  const SCENE = `
-precision highp float;
-uniform vec2 uRes;      // fbo px
-uniform vec2 uView;     // css px
-uniform float uTime, uScroll;
-uniform vec2 uPtr;      // q-space
-uniform float uPtrOn;
-uniform sampler2D uText;
-uniform vec2 uTextSize; // css px
-#define NB 5
-float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
-float vn(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
-  return mix(mix(h21(i),h21(i+vec2(1,0)),f.x),mix(h21(i+vec2(0,1)),h21(i+vec2(1,1)),f.x),f.y);}
-float fbm(vec2 p){float s=0.,a=.5;for(int i=0;i<4;i++){s+=a*vn(p);p*=2.03;a*=.5;}return s;}
-vec3 aurora(vec2 q){
-  float t=uTime*.03;
-  float n1=fbm(q*1.1+vec2(t,-t*.7)+uScroll*.00015);
-  float n2=fbm(q*1.7-vec2(t*.6,t)+3.1);
-  vec3 abyss=vec3(.039,.063,.188), cobalt=vec3(.19,.27,.88), orchid=vec3(.71,.36,.94), apricot=vec3(1.,.68,.48), lagoon=vec3(.18,.84,.76);
-  vec3 c=abyss;
-  c=mix(c,cobalt,smoothstep(.35,.85,n1)*.85);
-  c=mix(c,orchid,smoothstep(.5,.95,n2)*.65);
-  c=mix(c,apricot,smoothstep(.62,1.,n1*n2*1.9)*.55);
-  c=mix(c,lagoon,smoothstep(.72,1.,n2*(1.-n1)*2.2)*.35);
-  float v=1.-length(q*vec2(.6,.9))*.45; return c*clamp(v,.35,1.);
-}
-float textA(vec2 q){
-  vec2 css=vec2((q.x/(uView.x/uView.y)+.5)*uView.x,(.5-q.y)*uView.y);
-  vec2 uv=vec2(css.x,css.y+uScroll)/uTextSize;
-  if(uv.x<0.||uv.y<0.||uv.x>1.||uv.y>1.)return 0.;
-  return texture2D(uText,uv).a;
-}
-vec3 base(vec2 q){ vec3 c=aurora(q); float a=textA(q); return mix(c,vec3(.96,.95,1.),a*.94); }
-void main(){
-  vec2 p=gl_FragCoord.xy/uRes; float asp=uView.x/uView.y;
-  vec2 q=(p-.5)*vec2(asp,1.);
-  float t=uTime;
-  float field=0.; vec2 grad=vec2(0.);
-  for(int i=0;i<NB;i++){
-    float fi=float(i);
-    vec2 c=vec2(sin(t*(.13+fi*.021)+fi*2.1)*(.42*asp), .16+cos(t*(.11+fi*.017)+fi*1.3)*.26);
-    c.x+=sin(uScroll*.0012+fi)*.08;
-    float r=(.095+.04*sin(fi*1.7+t*.2)+(i==0?.05:0.))*mix(.62,1.,clamp(asp,0.,1.));
-    vec2 d=q-c; float d2=dot(d,d)+1e-4;
-    field+=r*r/d2; grad+=-2.*r*r*d/(d2*d2);
+  function labels() {
+    themeBtn.setAttribute('aria-label', T(root.dataset.theme === 'dark' ? 'toTheme.light' : 'toTheme.dark'));
+    langBtn.setAttribute('aria-label', T('toLang'));
+    document.getElementById('lang-code').textContent = root.lang.toUpperCase();
+    document.querySelectorAll('[data-i18n-label]').forEach(b => b.setAttribute('aria-label', T(b.dataset.i18nLabel)));
   }
-  vec2 d=q-uPtr; float d2=dot(d,d)+1e-4; float pr=.09*uPtrOn*mix(.7,1.,clamp(asp,0.,1.));
-  field+=pr*pr/d2; grad+=-2.*pr*pr*d/(d2*d2);
-  vec3 outside=base(q);
-  vec3 col=outside;
-  if(field>.9){
-    // height h = 1 - 1/field: 0 on the surface edge, rising to 1 at the core.
-    // Its gradient vanishes at the core and peaks at the rim, like a real drop.
-    vec2 gh=grad/(field*field);
-    vec3 n=normalize(vec3(-gh*.03,1.));
-    float tilt=1.-n.z;                          // 0 flat core, ->1 at the rim
-    vec2 off=-n.xy*.08;                         // lensing toward the core = magnify
-    vec3 rc;
-    rc.r=base(q+off*1.12).r; rc.g=base(q+off).g; rc.b=base(q+off*.88).b;
-    rc=rc*1.06+vec3(.015,.018,.04);
-    vec3 L=normalize(vec3(-.45,.75,.55));
-    vec2 nd=normalize(n.xy+1e-4);
-    float facing=max(dot(nd,L.xy),0.);
-    float spec=pow(max(dot(reflect(-L,n),vec3(0,0,1)),0.),70.);
-    float fres=pow(tilt,2.2);
-    vec3 sky=mix(vec3(.10,.12,.30),vec3(.85,.88,1.),smoothstep(-.3,.9,nd.y));   // fake environment
-    vec3 iri=.5+.5*cos(6.2832*(vec3(0.,.33,.67)+tilt*.9+t*.02));
-    float edgeLine=smoothstep(1.,1.05,field)*(1.-smoothstep(1.05,1.3,field));
-    col=rc+sky*fres*.45+iri*fres*.10+spec*1.2+edgeLine*(.18+.5*facing);
-    col*=1.-.18*smoothstep(.35,.9,tilt)*(1.-facing);                      // shaded far side
+  function setLang(l) {
+    root.lang = l;
+    nodes.forEach(n => { n.textContent = l === 'fr' ? (FR[n.dataset.i18n] ?? n.dataset.en) : n.dataset.en; });
+    const fmt = new Intl.DateTimeFormat(l === 'fr' ? 'fr-FR' : 'en-US', { month: 'short', year: 'numeric' });
+    times.forEach(t => { const [y, m] = t.dateTime.split('-'); t.textContent = m ? fmt.format(new Date(+y, +m - 1, 1)) : y; });
+    document.title = META[l].title;
+    document.querySelector('meta[name=description]').content = META[l].desc;
+    labels();
   }
-  float aa=smoothstep(.97,1.03,field);
-  float shadowRing=smoothstep(.45,.97,field)*(1.-aa);                    // drop sits on the scene
-  outside*=1.-.28*shadowRing;
-  gl_FragColor=vec4(mix(outside,col,aa),1.);
-}`;
-
-  /* Composite: per-pixel liquid glass panes over the scene */
-  const COMP = `
-precision highp float;
-uniform sampler2D uScene;
-uniform vec2 uRes;
-uniform float uDpr;
-uniform int uCount;
-uniform vec4 uRect[${MAX}];   // x,y (bottom-left), w,h in device px
-uniform vec4 uMat[${MAX}];    // radius, tint alpha, light(1)/dark(0), glow
-uniform vec2 uLight;
-float sdRB(vec2 p, vec2 b, float r){vec2 q=abs(p)-b+r;return length(max(q,0.))+min(max(q.x,q.y),0.)-r;}
-vec3 S(vec2 px){return texture2D(uScene,px/uRes).rgb;}
-void main(){
-  vec2 p=gl_FragCoord.xy;
-  vec3 col=S(p);
-  float shadow=0.;
-  for(int i=0;i<${MAX};i++){
-    if(i>=uCount)break;
-    vec4 R=uRect[i]; vec4 M=uMat[i];
-    vec2 hb=R.zw*.5; vec2 c=R.xy+hb; float rad=min(M.x,min(hb.x,hb.y));
-    float d=sdRB(p-c,hb,rad);
-    if(d<0.){
-      vec2 e=vec2(1.,0.);
-      vec2 n=normalize(vec2(sdRB(p+e.xy-c,hb,rad)-sdRB(p-e.xy-c,hb,rad), sdRB(p+e.yx-c,hb,rad)-sdRB(p-e.yx-c,hb,rad))+1e-5);
-      float bevel=min(min(hb.x,hb.y)*.9, 34.*uDpr);
-      float k=1.-clamp(-d/bevel,0.,1.);
-      float lens=k*k*k;
-      float size=clamp(min(R.z,R.w)/(220.*uDpr),.35,1.6);   // bigger glass = thicker
-      float str=(22.+20.*size)*uDpr;
-      vec2 o=n*lens*str;
-      vec3 g;
-      g.r=S(p-o*1.12).r; g.g=S(p-o).g; g.b=S(p-o*.88).b;
-      float fr=(2.+3.*size)*uDpr;
-      g=(g*2.+S(p-o+vec2(fr,fr))+S(p-o+vec2(-fr,fr))+S(p-o+vec2(fr,-fr))+S(p-o+vec2(-fr,-fr)))/6.;
-      g=mix(g,vec3(dot(g,vec3(.299,.587,.114))),-.25);       // vibrancy
-      vec3 tint=mix(vec3(.04,.06,.17),vec3(.96,.955,1.),M.z);
-      g=mix(g,tint,M.y);
-      float lit=max(dot(n,uLight),0.);
-      float rimLine=1.-smoothstep(0.,1.6*uDpr,-d);
-      float rimSoft=1.-smoothstep(0.,10.*uDpr,-d);
-      g+=rimLine*(.22+.6*lit)+rimSoft*lit*.10;
-      g+=rimLine*max(dot(n,-uLight),0.)*.12;
-      g+=M.w*(.18*(1.-clamp(-d/(R.w*.6),0.,1.)));
-      col=g; shadow=0.; break;
-    } else {
-      float rad2=min(min(hb.x,hb.y),M.x);
-      vec2 so=vec2(0.,-10.*uDpr);
-      float ds=sdRB(p-c-so,hb,rad2);
-      shadow=max(shadow,(1.-smoothstep(0.,26.*uDpr,ds))*.28);
-    }
+  function setTheme(t) {
+    root.dataset.theme = t;
+    document.getElementById('theme-color').content = BG[t];
+    labels();
   }
-  col*=1.-shadow;
-  gl_FragColor=vec4(col,1.);
-}`;
+  themeBtn.addEventListener('click', () => { const t = root.dataset.theme === 'dark' ? 'light' : 'dark'; setTheme(t); save('theme', t); });
+  langBtn.addEventListener('click', () => { const l = root.lang === 'fr' ? 'en' : 'fr'; setLang(l); save('lang', l); });
 
-  function sh(type, src){ const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
-    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; }
-  function prog(fs){ const p = gl.createProgram(); gl.attachShader(p, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(p, sh(gl.FRAGMENT_SHADER, fs));
-    gl.bindAttribLocation(p, 0, 'a'); gl.linkProgram(p); if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p)); return p; }
-
-  let P1, P2;
-  try { P1 = prog(SCENE); P2 = prog(COMP); } catch (e) { console.warn(e); return; }
-
-  const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,3,-1,-1,3]), gl.STATIC_DRAW);
-  gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
-
-  const U = (p, n) => gl.getUniformLocation(p, n);
-  const u1 = {}; ['uRes','uView','uTime','uScroll','uPtr','uPtrOn','uText','uTextSize'].forEach(n => u1[n] = U(P1, n));
-  const u2 = {}; ['uScene','uRes','uDpr','uCount','uRect','uMat','uLight'].forEach(n => u2[n] = U(P2, n));
-
-  function tex(){ const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE); return t; }
-
-  const sceneTex = tex(), textTex = tex();
-  const fbo = gl.createFramebuffer();
-
-  /* typography texture: the hero name, drawn where the DOM puts it */
-  const tc = document.createElement('canvas'), tctx = tc.getContext('2d');
-  let textSize = [1, 1];
-  function drawText(){
-    const lines = document.querySelectorAll('.hero h1 .ln');
-    const hero = document.querySelector('.hero').getBoundingClientRect();
-    const td = Math.min(devicePixelRatio || 1, 2);
-    const w = innerWidth, h = Math.ceil(hero.bottom + scrollY);
-    tc.width = Math.max(1, Math.round(w * td)); tc.height = Math.max(1, Math.round(h * td));
-    tctx.setTransform(td, 0, 0, td, 0, 0); tctx.clearRect(0, 0, w, h);
-    lines.forEach(el => {
-      const r = el.getBoundingClientRect(), cs = getComputedStyle(el);
-      tctx.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
-      if ('letterSpacing' in tctx) tctx.letterSpacing = cs.letterSpacing;
-      tctx.textBaseline = 'alphabetic'; tctx.fillStyle = '#fff';
-      const m = tctx.measureText(el.textContent);
-      const asc = m.fontBoundingBoxAscent || parseFloat(cs.fontSize) * .9;
-      const desc = m.fontBoundingBoxDescent || parseFloat(cs.fontSize) * .25;
-      const lh = r.height, y = r.top + scrollY + (lh - (asc + desc)) / 2 + asc;
-      tctx.fillText(el.textContent, r.left, y);
-    });
-    gl.bindTexture(gl.TEXTURE_2D, textTex);
-    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, tc);
-    textSize = [w, h];
-    document.body.classList.add('text-ready');
+  /* drawer (narrow screens only) */
+  const side = document.getElementById('side'), scrim = document.getElementById('scrim');
+  const openBtn = document.getElementById('menu-open'), closeBtn = document.getElementById('menu-close');
+  const narrow = matchMedia('(max-width: 900px)');
+  const isOpen = () => side.hasAttribute('data-open');
+  function openMenu() {
+    side.setAttribute('data-open', ''); scrim.setAttribute('data-open', '');
+    openBtn.setAttribute('aria-expanded', 'true');
+    document.querySelector('.col').inert = true;
+    side.querySelector('a.nav').focus({ preventScroll: true });
   }
-
-  let W = 0, H = 0, dpr = 1, sw = 0, shh = 0;
-  const sceneScale = mobile ? 0.8 : 0.6;
-  function resize(){
-    dpr = Math.min(devicePixelRatio || 1, mobile ? 1.6 : 2);
-    W = Math.round(innerWidth * dpr); H = Math.round(innerHeight * dpr);
-    canvas.width = W; canvas.height = H;
-    sw = Math.max(2, Math.round(innerWidth * sceneScale * Math.min(dpr, 1.5)));
-    shh = Math.max(2, Math.round(innerHeight * sceneScale * Math.min(dpr, 1.5)));
-    gl.bindTexture(gl.TEXTURE_2D, sceneTex);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, sw, shh, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
-    gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
-    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, sceneTex, 0);
-    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-    drawText(); dirty = true;
+  function closeMenu(returnFocus) {
+    if (!isOpen()) return;
+    side.removeAttribute('data-open'); scrim.removeAttribute('data-open');
+    openBtn.setAttribute('aria-expanded', 'false');
+    document.querySelector('.col').inert = false;
+    if (returnFocus) openBtn.focus({ preventScroll: true });
   }
+  openBtn.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', () => closeMenu(true));
+  scrim.addEventListener('click', () => closeMenu(true));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(true); });
+  side.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { if (narrow.matches) closeMenu(false); }));
+  narrow.addEventListener('change', () => closeMenu(false));
 
-  /* glass elements */
-  const els = [...document.querySelectorAll('[data-glass]')];
-  const glow = new Map();
-  els.forEach(el => el.addEventListener('pointerdown', () => glow.set(el, 1)));
-  const rects = new Float32Array(MAX * 4), mats = new Float32Array(MAX * 4);
-  function collect(){
-    let n = 0; const vh = innerHeight;
-    for (const el of els) {
-      if (n >= MAX) break;
-      const r = el.getBoundingClientRect();
-      if (r.bottom < -40 || r.top > vh + 40 || r.width < 2) continue;
-      const kind = el.dataset.glass; if (kind === 'dock') continue;
-      const cs = getComputedStyle(el);
-      let rad = parseFloat(cs.borderTopLeftRadius) || 0;
-      rad = Math.min(rad, r.height / 2, r.width / 2);
-      let tint = parseFloat(el.dataset.tint || '0.5');
-      if (reduceTransp.matches) tint = Math.max(tint, kind === 'cap-light' ? .95 : .88);
-      rects.set([r.left * dpr, (vh - r.bottom) * dpr, r.width * dpr, r.height * dpr], n * 4);
-      const gw = glow.get(el) || 0; if (gw > 0) glow.set(el, gw * .9 < .01 ? 0 : gw * .9);
-      mats.set([rad * dpr, tint, kind === 'cap-light' ? 1 : 0, gw], n * 4);
-      n++;
-    }
-    return n;
-  }
+  /* highlight the section in view */
+  const navs = [...side.querySelectorAll('a.nav')];
+  const ids = navs.map(a => a.getAttribute('href').slice(1));
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) navs.forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + e.target.id ? 'true' : 'false'));
+  }), { rootMargin: '-40% 0px -55% 0px' });
+  ids.forEach(id => io.observe(document.getElementById(id)));
 
-  /* pointer droplet */
-  const ptr = { x: 0, y: 0, tx: 0, ty: 0, on: 0, ton: 0 };
-  function toQ(cx, cy){ const asp = innerWidth / innerHeight; return [(cx / innerWidth - .5) * asp, .5 - cy / innerHeight]; }
-  addEventListener('pointermove', e => { [ptr.tx, ptr.ty] = toQ(e.clientX, e.clientY); ptr.ton = 1; if (!ptr.on) { ptr.x = ptr.tx; ptr.y = ptr.ty; } dirty = true; }, { passive: true });
-  addEventListener('pointerdown', e => { [ptr.tx, ptr.ty] = toQ(e.clientX, e.clientY); ptr.ton = 1; dirty = true; }, { passive: true });
-  document.addEventListener('pointerleave', () => { ptr.ton = 0; });
-  const light = [-.6, .8];
-
-  let dirty = true, t0 = performance.now(), frozenT = 18.0;
-  addEventListener('scroll', () => dirty = true, { passive: true });
-  addEventListener('resize', () => resize());
-
-  function frame(now){
-    requestAnimationFrame(frame);
-    const animate = !reduceMotion.matches;
-    ptr.x += (ptr.tx - ptr.x) * .12; ptr.y += (ptr.ty - ptr.y) * .12; ptr.on += (ptr.ton - ptr.on) * .08;
-    const moving = Math.abs(ptr.tx - ptr.x) + Math.abs(ptr.ty - ptr.y) > 1e-4 || Math.abs(ptr.ton - ptr.on) > 1e-3;
-    if (!animate && !dirty && !moving && ![...glow.values()].some(v => v > 0)) return;
-    dirty = false;
-    const t = animate ? (now - t0) / 1000 + frozenT : frozenT;
-
-    // pass 1: scene
-    gl.bindFramebuffer(gl.FRAMEBUFFER, fbo); gl.viewport(0, 0, sw, shh); gl.useProgram(P1);
-    gl.uniform2f(u1.uRes, sw, shh); gl.uniform2f(u1.uView, innerWidth, innerHeight);
-    gl.uniform1f(u1.uTime, t); gl.uniform1f(u1.uScroll, scrollY);
-    gl.uniform2f(u1.uPtr, ptr.x, ptr.y); gl.uniform1f(u1.uPtrOn, ptr.on);
-    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, textTex); gl.uniform1i(u1.uText, 0);
-    gl.uniform2f(u1.uTextSize, textSize[0], textSize[1]);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
-
-    // pass 2: glass
-    gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.viewport(0, 0, W, H); gl.useProgram(P2);
-    const n = collect();
-    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, sceneTex); gl.uniform1i(u2.uScene, 0);
-    gl.uniform2f(u2.uRes, W, H); gl.uniform1f(u2.uDpr, dpr); gl.uniform1i(u2.uCount, n);
-    gl.uniform4fv(u2.uRect, rects); gl.uniform4fv(u2.uMat, mats);
-    const lx = light[0] + (ptr.x * .4), ly = light[1]; const ll = Math.hypot(lx, ly) || 1;
-    gl.uniform2f(u2.uLight, lx / ll, ly / ll);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
-  }
-
-  document.body.classList.add('gl');
-  resize();
-  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => { drawText(); dirty = true; });
-  requestAnimationFrame(frame);
-
-  /* dock: mark the section in view */
-  const links = [...document.querySelectorAll('.dock a')];
-  const io = new IntersectionObserver(es => es.forEach(en => {
-    if (en.isIntersecting) links.forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + en.target.id ? 'true' : 'false'));
-  }), { rootMargin: '-45% 0px -50% 0px' });
-  ['now', 'work', 'shell', 'contact'].forEach(id => io.observe(document.getElementById(id)));
+  setTheme(root.dataset.theme);
+  setLang(root.lang);
 })();
 </script>
 </body>
