@@ -15,7 +15,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#FFFFFF" id="theme-color">
-<link rel="preload" href="fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/nunito-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><circle cx='24' cy='8' r='3' fill='%237DD3FC'/><text x='15' y='22' text-anchor='middle' font-family='system-ui,sans-serif' font-size='14' font-weight='600' fill='%23FFFFFF'>MD</text></svg>">
 <script>
 /* Theme and language are set before first paint so nothing flashes. */
@@ -24,11 +24,15 @@
   try { t = localStorage.getItem('theme'); l = localStorage.getItem('lang'); } catch (e) {}
   if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   if (l !== 'fr' && l !== 'en') l = (navigator.languages || [navigator.language || 'en']).some(function (x) { return /^fr\b/i.test(x); }) ? 'fr' : 'en';
-  d.dataset.theme = t; d.lang = l;
+  var f = null; try { f = localStorage.getItem('font'); } catch (e) {}
+  d.dataset.theme = t; d.lang = l; if (f === 'dyslexic') d.dataset.font = 'dyslexic';
 })();
 </script>
 <style>
-@font-face{font-family:"Schibsted Grotesk";src:url(fonts/schibsted-grotesk-latin-wght-normal.woff2) format("woff2");font-weight:400 900;font-display:swap}
+@font-face{font-family:"Nunito";src:url(fonts/nunito-latin-wght-normal.woff2) format("woff2");font-weight:200 1000;font-display:swap}
+/* OpenDyslexic is only downloaded when the reader turns it on */
+@font-face{font-family:"OpenDyslexic";src:url(fonts/opendyslexic-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"OpenDyslexic";src:url(fonts/opendyslexic-latin-700-normal.woff2) format("woff2");font-weight:500 700;font-display:swap}
 
 /* Light: white, black, sky blue. Dark: the inverse, black, white, navy. */
 :root{
@@ -38,6 +42,7 @@
   --on-accent:#0A0A0A;
   --ring:#0A0A0A;
   --shadow:0 1px 2px rgba(10,10,10,.06),0 10px 28px -10px rgba(10,10,10,.22);
+  --font:"Nunito",ui-rounded,system-ui,sans-serif;
   --ease-out:cubic-bezier(.23,1,.32,1);
   --ease-drawer:cubic-bezier(.32,.72,0,1);
   color-scheme:light;
@@ -55,7 +60,7 @@
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-padding-top:32px}
 @media (pointer:fine){html{overscroll-behavior:none}}
-body{margin:0;background:var(--bg);color:var(--text);font:400 1rem/1.65 "Schibsted Grotesk",system-ui,sans-serif;
+body{margin:0;background:var(--bg);color:var(--text);font:400 1.0625rem/1.65 var(--font);
   -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-webkit-tap-highlight-color:transparent}
 ::selection{background:var(--accent);color:var(--on-accent)}
 a{color:inherit;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:4px}
@@ -94,7 +99,7 @@ h1,h2,h3{text-wrap:balance}
 
 /* content */
 main{padding:88px 0 140px;min-width:0}
-.intro h1{font-size:clamp(2.125rem,6vw,2.75rem);line-height:1.08;letter-spacing:-.03em;font-weight:600;margin:0 0 8px;text-wrap:balance}
+.intro h1{font-size:clamp(2.125rem,6vw,2.75rem);line-height:1.08;letter-spacing:-.025em;font-weight:800;margin:0 0 8px;text-wrap:balance}
 .role{color:var(--muted);margin:0 0 28px;font-size:1.0625rem}
 .intro p{margin:0 0 16px;max-width:62ch;text-wrap:pretty}
 .status{display:flex;align-items:flex-start;gap:10px;margin:20px 0 28px;color:var(--muted);font-size:.9375rem}
@@ -105,12 +110,12 @@ main{padding:88px 0 140px;min-width:0}
 @media (hover:hover) and (pointer:fine){main a:hover{text-decoration-color:currentColor}}
 
 section{padding-top:72px}
-section h2{font-size:1.25rem;line-height:1.3;font-weight:600;letter-spacing:-.015em;margin:0 0 24px}
+section h2{font-size:1.375rem;line-height:1.3;font-weight:800;letter-spacing:-.015em;margin:0 0 24px}
 .rows{list-style:none;margin:0;padding:0}
 .rows>li{display:grid;grid-template-columns:150px 1fr;gap:4px 28px}
 .rows>li+li{margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
 .when{color:var(--faint);font-size:.875rem;line-height:1.65rem;white-space:nowrap}
-.rows h3{font-size:1rem;font-weight:600;margin:0;letter-spacing:-.005em}
+.rows h3{font-size:1.0625rem;font-weight:700;margin:0;letter-spacing:-.005em}
 .at{color:var(--muted);margin:0 0 8px}
 .rows p{margin:0 0 8px;max-width:62ch;text-wrap:pretty}
 .rows ul{margin:0;padding-left:1.1em;color:var(--muted)}
@@ -124,6 +129,15 @@ section h2{font-size:1.25rem;line-height:1.3;font-weight:600;letter-spacing:-.01
 footer{padding-top:72px;color:var(--faint);font-size:.875rem}
 
 /* tablet and phone: the side menu becomes a drawer from the right */
+:root[data-font="dyslexic"]{--font:"OpenDyslexic",var(--font-fallback,system-ui),sans-serif}
+:root[data-font="dyslexic"] body{font-size:1rem;line-height:1.8}
+:root[data-font="dyslexic"] .rows>li,:root[data-font="dyslexic"] .skills{grid-template-columns:1fr;gap:2px}
+:root[data-font="dyslexic"] .skills dd{margin-bottom:12px}
+:root[data-font="dyslexic"] .layout{grid-template-columns:minmax(0,680px) 200px}
+:root[data-font="dyslexic"] h1,:root[data-font="dyslexic"] h2,:root[data-font="dyslexic"] h3{letter-spacing:0}
+:root[data-font="dyslexic"] .side a.nav{font-size:.95rem}
+.ctl[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:transparent}
+.ctl .aa{font-size:1rem;font-weight:700;letter-spacing:0}
 @media (max-width:900px){
   .layout{display:block;padding:0 20px}
   main{padding-top:24px}
@@ -303,6 +317,7 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
 <div class="scrim" id="scrim"></div>
 
 <div class="dock">
+  <button class="ctl icon" id="font-toggle" aria-pressed="false" aria-label="Dyslexia-friendly font"><span class="aa" aria-hidden="true">Aa</span></button>
   <button class="ctl" id="lang-toggle" aria-label="Passer en français"><span id="lang-code">EN</span></button>
   <button class="ctl icon" id="theme-toggle" aria-label="Switch to dark theme">
     <svg class="moon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
@@ -313,7 +328,7 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
 <script>
 (() => {
   const FR = {
-    'skip':'Aller au contenu', 'menu':'Menu', 'close':'Fermer le menu', 'toTheme.dark':'Passer au thème sombre', 'toTheme.light':'Passer au thème clair', 'toLang':'Switch to English', 'sections':'Sections',
+    'skip':'Aller au contenu', 'menu':'Menu', 'close':'Fermer le menu', 'toTheme.dark':'Passer au thème sombre', 'toTheme.light':'Passer au thème clair', 'toLang':'Switch to English', 'sections':'Sections', 'font':'Police adaptée à la dyslexie',
     'nav.experience':'Expérience', 'nav.projects':'Projets', 'nav.education':'Formation', 'nav.skills':'Compétences', 'nav.contact':'Contact',
     'theme':'Thème', 'light':'Clair', 'dark':'Sombre', 'language':'Langue',
     'role':'Étudiant ingénieur en informatique à l’EPITA, Paris',
@@ -351,7 +366,7 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
     en: { title: 'Mattéo Dewilde · Software Engineer', desc: document.querySelector('meta[name=description]').content },
     fr: { title: 'Mattéo Dewilde · Ingénieur logiciel', desc: 'Étudiant ingénieur à l’EPITA. Programmation système en C, backend et automatisation IA. Je recherche un stage de 6 mois aux États-Unis en 2028.' }
   };
-  const EN = { 'toTheme.dark':'Switch to dark theme', 'toTheme.light':'Switch to light theme', 'toLang':'Passer en français', 'close':'Close menu' };
+  const EN = { 'font':'Dyslexia-friendly font', 'toTheme.dark':'Switch to dark theme', 'toTheme.light':'Switch to light theme', 'toLang':'Passer en français', 'close':'Close menu' };
   const root = document.documentElement;
   const nodes = [...document.querySelectorAll('[data-i18n]')];
   nodes.forEach(n => n.dataset.en = n.textContent);       // English stays the source text in the HTML
@@ -360,11 +375,13 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
   const save = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
   const T = k => (root.lang === 'fr' ? FR : EN)[k];
 
-  const langBtn = document.getElementById('lang-toggle'), themeBtn = document.getElementById('theme-toggle');
+  const langBtn = document.getElementById('lang-toggle'), themeBtn = document.getElementById('theme-toggle'), fontBtn = document.getElementById('font-toggle');
 
   function labels() {
     themeBtn.setAttribute('aria-label', T(root.dataset.theme === 'dark' ? 'toTheme.light' : 'toTheme.dark'));
     langBtn.setAttribute('aria-label', T('toLang'));
+    fontBtn.setAttribute('aria-label', T('font'));
+    fontBtn.setAttribute('aria-pressed', root.dataset.font === 'dyslexic');
     document.getElementById('lang-code').textContent = root.lang.toUpperCase();
     document.querySelectorAll('[data-i18n-label]').forEach(b => b.setAttribute('aria-label', T(b.dataset.i18nLabel)));
   }
@@ -384,6 +401,11 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
   }
   themeBtn.addEventListener('click', () => { const t = root.dataset.theme === 'dark' ? 'light' : 'dark'; setTheme(t); save('theme', t); });
   langBtn.addEventListener('click', () => { const l = root.lang === 'fr' ? 'en' : 'fr'; setLang(l); save('lang', l); });
+  fontBtn.addEventListener('click', () => {
+    const on = root.dataset.font !== 'dyslexic';
+    if (on) root.dataset.font = 'dyslexic'; else delete root.dataset.font;
+    save('font', on ? 'dyslexic' : 'default'); labels();
+  });
 
   /* drawer (narrow screens only) */
   const side = document.getElementById('side'), scrim = document.getElementById('scrim');
@@ -413,10 +435,30 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
   /* highlight the section in view */
   const navs = [...side.querySelectorAll('a.nav')];
   const ids = navs.map(a => a.getAttribute('href').slice(1));
-  const io = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) navs.forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + e.target.id ? 'true' : 'false'));
-  }), { rootMargin: '-40% 0px -55% 0px' });
-  ids.forEach(id => io.observe(document.getElementById(id)));
+  const secs = ids.map(id => document.getElementById(id));
+  const mark = id => navs.forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + id ? 'true' : 'false'));
+  let locked = null, lockTimer = 0;
+  /* The active section is the last one whose heading has passed a third of the screen.
+     At the very bottom the last sections can never reach that line, so a clicked link wins. */
+  function spy() {
+    if (locked) return;
+    const line = innerHeight * 0.33;
+    let cur = null;
+    for (const s of secs) if (s.getBoundingClientRect().top <= line) cur = s.id;
+    const atBottom = innerHeight + scrollY >= document.documentElement.scrollHeight - 2;
+    if (atBottom) cur = secs[secs.length - 1].id;
+    mark(cur);
+  }
+  navs.forEach(a => a.addEventListener('click', () => {
+    const id = a.getAttribute('href').slice(1);
+    mark(id); locked = id; clearTimeout(lockTimer);
+  }));
+  const unlock = () => { clearTimeout(lockTimer); lockTimer = setTimeout(() => { locked = null; }, 150); };
+  addEventListener('scroll', () => { if (locked) unlock(); else spy(); }, { passive: true });
+  addEventListener('wheel', () => { locked = null; }, { passive: true });
+  addEventListener('touchmove', () => { locked = null; }, { passive: true });
+  addEventListener('resize', spy);
+  spy();
 
   setTheme(root.dataset.theme);
   setLang(root.lang);
