@@ -4,12 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mattéo Dewilde · Software Engineer</title>
-<meta name="description" content="Computer engineering student at EPITA. Systems programming in C, backend and AI automation. Looking for a 4–6 month software engineering internship in the US in 2028.">
+<meta name="description" content="Computer engineering student at EPITA. Systems programming in C, backend and AI automation. Looking for a 4–6 month internship in the US in 2028, in software engineering or IT consulting.">
 <link rel="canonical" href="https://matwwwild.github.io/">
+<link rel="alternate" hreflang="en" href="https://matwwwild.github.io/?lang=en">
+<link rel="alternate" hreflang="fr" href="https://matwwwild.github.io/?lang=fr">
+<link rel="alternate" hreflang="x-default" href="https://matwwwild.github.io/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Mattéo Dewilde", "url": "https://matwwwild.github.io/", "image": "https://matwwwild.github.io/photo-384.jpg", "email": "mailto:matteo.dewilde1@gmail.com", "jobTitle": "AI Automation Engineer Intern", "worksFor": {"@type": "Organization", "name": "Keyweo"}, "alumniOf": {"@type": "CollegeOrUniversity", "name": "EPITA", "url": "https://www.epita.fr/"}, "sameAs": ["https://www.linkedin.com/in/matteo-dewilde", "https://github.com/matwwwild"], "knowsAbout": ["C", "Systems programming", "Java", "Quarkus", "PostgreSQL", "Backend development", "AI automation", "IT consulting"], "knowsLanguage": ["fr", "en"]}</script>
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://matwwwild.github.io/">
 <meta property="og:title" content="Mattéo Dewilde · Software Engineer">
-<meta property="og:description" content="Systems programming in C, backend and AI automation. Looking for a 4–6 month US internship in 2028.">
+<meta property="og:description" content="Systems programming in C, backend and AI automation. Looking for a 4–6 month US internship in 2028, in software engineering or IT consulting.">
 <meta property="og:image" content="https://matwwwild.github.io/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -23,6 +27,7 @@
   var d = document.documentElement, t = null, l = null;
   try { t = localStorage.getItem('theme'); l = localStorage.getItem('lang'); } catch (e) {}
   if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  var q = new URLSearchParams(location.search).get('lang'); if (q === 'fr' || q === 'en') l = q;
   if (l !== 'fr' && l !== 'en') l = (navigator.languages || [navigator.language || 'en']).some(function (x) { return /^fr\b/i.test(x); }) ? 'fr' : 'en';
   var f = null; try { f = localStorage.getItem('font'); } catch (e) {}
   d.dataset.theme = t; d.lang = l; if (f === 'dyslexic') d.dataset.font = 'dyslexic';
@@ -40,6 +45,7 @@
   --accent:#7DD3FC;          /* sky blue, used as a fill behind black text */
   --accent-soft:#E0F4FE;
   --on-accent:#0A0A0A;
+  --link-line:#0284C7;
   --ring:#0A0A0A;
   --shadow:0 1px 2px rgba(10,10,10,.06),0 10px 28px -10px rgba(10,10,10,.22);
   --font:"Nunito",ui-rounded,system-ui,sans-serif;
@@ -52,6 +58,7 @@
   --accent:#1E3A8A;          /* navy, used as a fill behind white text */
   --accent-soft:#0B1633;
   --on-accent:#FFFFFF;
+  --link-line:#3B63D9;
   --ring:#FFFFFF;
   --shadow:0 1px 2px rgba(0,0,0,.6),0 12px 32px -10px rgba(0,0,0,.9);
   color-scheme:dark;
@@ -63,7 +70,7 @@ html{-webkit-text-size-adjust:100%;scroll-padding-top:32px}
 body{margin:0;background:var(--bg);color:var(--text);font:400 1.0625rem/1.65 var(--font);
   -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-webkit-tap-highlight-color:transparent}
 ::selection{background:var(--accent);color:var(--on-accent)}
-a{color:inherit;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:4px}
+a{color:inherit;text-decoration-color:var(--link-line);text-decoration-thickness:2px;text-underline-offset:4px}
 :focus-visible{outline:2px solid var(--ring);outline-offset:3px;border-radius:6px}
 .skip{position:absolute;left:16px;top:-56px;padding:8px 12px;background:var(--raised);border:1px solid var(--line);border-radius:8px;z-index:40}
 .skip:focus{top:12px}
@@ -77,6 +84,9 @@ h1,h2,h3{text-wrap:balance}
 
 /* side menu (desktop) */
 .side{position:sticky;top:0;align-self:start;height:100vh;padding-top:86px}
+.side .home{display:block;padding:7px 12px;margin:0 0 12px;border-radius:999px;font-weight:700;text-decoration:none;letter-spacing:-.01em;
+  transition:background-color .15s var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.side .home:hover{background:var(--accent-soft)}}
 .side ul{list-style:none;margin:0;padding:0}
 .side a.nav{display:block;padding:7px 12px;border-radius:999px;text-decoration:none;color:var(--muted);
   transition:background-color .15s var(--ease-out),color .15s var(--ease-out)}
@@ -106,8 +116,12 @@ h1,h2,h3{text-wrap:balance}
 
 /* content */
 main{padding:88px 0 140px;min-width:0}
+.intro h1:focus{outline:none}
 .intro h1{font-size:clamp(2.125rem,6vw,2.75rem);line-height:1.08;letter-spacing:-.025em;font-weight:800;margin:0 0 8px;text-wrap:balance}
-.role{color:var(--muted);margin:0 0 28px;font-size:1.0625rem}
+.role{color:var(--muted);margin:0;font-size:1.0625rem}
+.who-block{display:flex;align-items:center;gap:20px;margin:0 0 28px}
+.avatar{display:block;width:96px;height:96px;border-radius:50%;object-fit:cover;flex:none;background:#1C2A44;outline:1px solid var(--line);outline-offset:2px}
+@media (max-width:560px){.who-block{gap:16px}.avatar{width:72px;height:72px}}
 .intro p{margin:0 0 16px;max-width:62ch;text-wrap:pretty}
 .status{display:flex;align-items:flex-start;gap:10px;margin:20px 0 28px;color:var(--muted);font-size:.9375rem}
 .status i{width:8px;height:8px;margin-top:.6em;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);flex:none}
@@ -133,7 +147,9 @@ section h2{font-size:1.375rem;line-height:1.3;font-weight:800;letter-spacing:-.0
 .skills dt{color:var(--faint);font-size:.875rem;line-height:1.65rem}
 .skills dd{margin:0}
 .lead{margin:0 0 16px;max-width:62ch}
-footer{padding-top:72px;color:var(--faint);font-size:.875rem}
+footer{padding-top:72px;color:var(--faint);font-size:.875rem;display:flex;flex-wrap:wrap;gap:4px 24px}
+.kbd-hint{display:none}
+@media (hover:hover) and (pointer:fine){.kbd-hint{display:inline}}
 
 /* tablet and phone: the side menu becomes a drawer from the right */
 :root[data-font="dyslexic"]{--font:"OpenDyslexic",var(--font-fallback,system-ui),sans-serif}
@@ -161,6 +177,7 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
   .side[data-open]{transform:none;visibility:visible;transition:transform .32s var(--ease-drawer),visibility 0s}
   .side-head{display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 0 0 12px;margin-bottom:8px}
   .side-head span{font-weight:600}
+  .side .home{display:none}
   .side a.nav{padding:12px 14px;font-size:1.0625rem;color:var(--text)}
   .scrim{display:block;position:fixed;inset:0;z-index:45;background:rgba(0,0,0,.32);opacity:0;visibility:hidden;
     transition:opacity .25s var(--ease-out),visibility 0s linear .25s}
@@ -182,25 +199,33 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
 <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
 
 <div class="layout">
-  <div class="col">
+  <div class="col" id="top">
     <div class="topbar">
       <a class="who" href="#top" translate="no">Mattéo Dewilde</a>
-      <button class="ctl menu-open" id="menu-open" aria-expanded="false" aria-controls="side">
+      <button class="ctl menu-open" id="menu-open" aria-expanded="false" aria-controls="side" aria-keyshortcuts="M">
         <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         <span data-i18n="menu">Menu</span>
       </button>
     </div>
 <main id="main">
-  <div class="intro" id="top">
-    <h1 translate="no">Mattéo Dewilde</h1>
-    <p class="role" data-i18n="role">Software engineering student at EPITA, Paris</p>
+  <div class="intro">
+    <div class="who-block">
+      <picture>
+        <source type="image/webp" srcset="photo-192.webp 1x, photo-384.webp 2x">
+        <img class="avatar" src="photo-384.jpg" width="96" height="96" alt="Portrait of Mattéo Dewilde" data-i18n-alt="photo.alt" fetchpriority="high" decoding="async">
+      </picture>
+      <div>
+        <h1 translate="no">Mattéo Dewilde</h1>
+        <p class="role" data-i18n="role">Software engineering student at EPITA, Paris</p>
+      </div>
+    </div>
     <p data-i18n="intro1">I work close to the system in C and build backends and automation that real teams use every day. I'm currently an AI automation engineer intern at Keyweo in Barcelona.</p>
-    <p class="status"><i aria-hidden="true"></i><span data-i18n="status">Looking for a 4–6 month software engineering internship in the US, starting 2028</span></p>
+    <p class="status"><i aria-hidden="true"></i><span data-i18n="status">Looking for a 4–6 month internship in the US starting 2028, in software engineering or IT consulting</span></p>
     <ul class="links">
       <li><a href="mailto:matteo.dewilde1@gmail.com" data-i18n="link.email">Email</a></li>
       <li><a href="https://www.linkedin.com/in/matteo-dewilde" target="_blank" rel="noopener">LinkedIn</a></li>
       <li><a href="https://github.com/matwwwild" target="_blank" rel="noopener">GitHub</a></li>
-      <li><a href="resume.pdf" data-i18n="link.resume">Resume (PDF)</a></li>
+      <li><a href="resume.pdf" data-resume data-i18n="link.resume">Resume (PDF)</a></li>
     </ul>
   </div>
 
@@ -278,7 +303,7 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
         <div>
           <h3 data-i18n="epita.title">Master of Engineering in Computer Science</h3>
           <p class="at"><span translate="no">EPITA</span>, Paris</p>
-          <p data-i18n="epita.1">Intensive C/Unix bootcamp, algorithms, object-oriented programming, databases, web, networking and machine learning. Upcoming major in software engineering and information systems (SIGL).</p>
+          <p data-i18n="epita.1">Intensive C/Unix bootcamp, algorithms, object-oriented programming, databases, web, networking and machine learning. Upcoming major in software engineering and information systems (SIGL), which prepares for both software engineering and IT consulting roles.</p>
         </div>
       </li>
     </ol>
@@ -292,6 +317,8 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
       <dt data-i18n="sk.tools">Tools</dt><dd translate="no">Linux, Git, GitHub Actions, Docker, Make, GDB, Valgrind</dd>
       <dt data-i18n="sk.test">Testing</dt><dd translate="no">Criterion, JUnit, Jest</dd>
       <dt data-i18n="sk.ai">AI</dt><dd data-i18n="sk.ai.v">LLM-assisted development (Claude Code), workflow automation</dd>
+      <dt data-i18n="sk.soft">Soft skills</dt><dd data-i18n="sk.soft.v">Public speaking, customer advice, mentoring, teamwork under pressure</dd>
+      <dt data-i18n="sk.method">Methods</dt><dd data-i18n="sk.method.v">Agile sprints, code review, SMART goals</dd>
       <dt data-i18n="sk.spoken">Spoken</dt><dd data-i18n="sk.spoken.v">French (native), English (professional, B2/C1)</dd>
     </dl>
   </section>
@@ -302,11 +329,11 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
     <ul class="links">
       <li><a href="mailto:matteo.dewilde1@gmail.com" translate="no">matteo.dewilde1@gmail.com</a></li>
       <li><a href="https://www.linkedin.com/in/matteo-dewilde" target="_blank" rel="noopener">LinkedIn</a></li>
-      <li><a href="resume.pdf" data-i18n="link.resume">Resume (PDF)</a></li>
+      <li><a href="resume.pdf" data-resume data-i18n="link.resume">Resume (PDF)</a></li>
     </ul>
   </section>
 </main>
-    <footer>© 2026 Mattéo Dewilde</footer>
+    <footer><span>© 2026 Mattéo Dewilde</span><span class="kbd-hint" data-i18n="kbd">Tip: press M to jump to the menu.</span></footer>
   </div>
 
   <aside class="side" id="side" aria-label="Sections">
@@ -316,6 +343,7 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
         <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9m0-9-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
       </button>
     </div>
+    <a class="home" href="#top" translate="no">Mattéo Dewilde</a>
     <ul>
       <li><a class="nav" href="#experience" data-i18n="nav.experience">Experience</a></li>
       <li><a class="nav" href="#projects" data-i18n="nav.projects">Projects</a></li>
@@ -344,8 +372,8 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
     'theme':'Thème', 'light':'Clair', 'dark':'Sombre', 'language':'Langue',
     'role':'Étudiant ingénieur en informatique à l’EPITA, Paris',
     'intro1':'Je travaille au plus près du système en C, et je développe des backends et des automatisations utilisés chaque jour par de vraies équipes. Je suis actuellement stagiaire ingénieur en automatisation IA chez Keyweo, à Barcelone.',
-    'status':'Je recherche un stage de 4 à 6 mois en développement logiciel aux États-Unis, à partir de 2028',
-    'link.email':'Email', 'link.resume':'CV en anglais (PDF)',
+    'status':'Je recherche un stage de 4 à 6 mois aux États-Unis à partir de 2028, en développement logiciel ou en conseil IT',
+    'link.email':'Email', 'link.resume':'CV (PDF)',
     'keyweo.title':'Stagiaire ingénieur en automatisation IA', 'barcelona':'Barcelone',
     'keyweo.1':'Développement d’un CRM de qualification de leads en PHP 8.4 et MariaDB, pensé mobile d’abord pour les conseillers sur le terrain.',
     'keyweo.2':'Conception d’un score de leads sur 100, destiné à alimenter les conversions Google Ads.',
@@ -367,15 +395,18 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
     'sh.4':'Code reviews sur Git, tests Criterion, fuites mémoire traquées avec Valgrind et AddressSanitizer.',
     'private':'Les projets d’école restent privés selon les règles de l’EPITA. Je présente volontiers le code en entretien.',
     'epita.title':'Diplôme d’ingénieur en informatique',
-    'epita.1':'Piscine C/Unix intensive, algorithmique, programmation orientée objet, bases de données, web, réseaux et machine learning. Majeure à venir : génie logiciel et systèmes d’information (SIGL).',
+    'epita.1':'Piscine C/Unix intensive, algorithmique, programmation orientée objet, bases de données, web, réseaux et machine learning. Majeure à venir : génie logiciel et systèmes d’information (SIGL), qui prépare aux métiers du développement comme du conseil IT.',
     'sk.lang':'Langages', 'sk.back':'Backend', 'sk.tools':'Outils', 'sk.test':'Tests', 'sk.ai':'IA',
     'sk.ai.v':'Développement assisté par LLM (Claude Code), automatisation de workflows',
+    'sk.soft':'Savoir-être', 'sk.soft.v':'Prise de parole en public, conseil client, tutorat, travail d’équipe sous pression',
+    'sk.method':'Méthodes', 'sk.method.v':'Sprints Agile, code review, objectifs SMART',
+    'kbd':'Astuce : appuyez sur M pour aller au menu.', 'photo.alt':'Portrait de Mattéo Dewilde',
     'sk.spoken':'Langues', 'sk.spoken.v':'Français (natif), anglais (professionnel, B2/C1)',
     'contact.1':'Le plus simple pour me joindre est l’email. Je réponds en général sous 24 heures.'
   };
   const META = {
     en: { title: 'Mattéo Dewilde · Software Engineer', desc: document.querySelector('meta[name=description]').content },
-    fr: { title: 'Mattéo Dewilde · Ingénieur logiciel', desc: 'Étudiant ingénieur à l’EPITA. Programmation système en C, backend et automatisation IA. Je recherche un stage de 4 à 6 mois aux États-Unis en 2028.' }
+    fr: { title: 'Mattéo Dewilde · Ingénieur logiciel', desc: 'Étudiant ingénieur à l’EPITA. Programmation système en C, backend et automatisation IA. Je recherche un stage de 4 à 6 mois aux États-Unis en 2028, en développement logiciel ou en conseil IT.' }
   };
   const EN = { 'font':'Dyslexia-friendly font', 'toTheme.dark':'Switch to dark theme', 'toTheme.light':'Switch to light theme', 'toLang':'Passer en français', 'close':'Close menu' };
   const root = document.documentElement;
@@ -401,6 +432,8 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
     nodes.forEach(n => { n.textContent = l === 'fr' ? (FR[n.dataset.i18n] ?? n.dataset.en) : n.dataset.en; });
     const fmt = new Intl.DateTimeFormat(l === 'fr' ? 'fr-FR' : 'en-US', { month: 'short', year: 'numeric' });
     times.forEach(t => { const [y, m] = t.dateTime.split('-'); t.textContent = m ? fmt.format(new Date(+y, +m - 1, 1)) : y; });
+    document.querySelectorAll('[data-i18n-alt]').forEach(i => { i.dataset.enAlt ??= i.alt; i.alt = l === 'fr' ? FR[i.dataset.i18nAlt] : i.dataset.enAlt; });
+    document.querySelectorAll('[data-resume]').forEach(r => r.href = l === 'fr' ? 'resume-fr.pdf' : 'resume.pdf');
     document.title = META[l].title;
     document.querySelector('meta[name=description]').content = META[l].desc;
     labels();
@@ -411,7 +444,10 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
     labels();
   }
   themeBtn.addEventListener('click', () => { const t = root.dataset.theme === 'dark' ? 'light' : 'dark'; setTheme(t); save('theme', t); });
-  langBtn.addEventListener('click', () => { const l = root.lang === 'fr' ? 'en' : 'fr'; setLang(l); save('lang', l); });
+  langBtn.addEventListener('click', () => {
+    const l = root.lang === 'fr' ? 'en' : 'fr'; setLang(l); save('lang', l);
+    const u = new URL(location.href); u.searchParams.set('lang', l); history.replaceState(null, '', u);
+  });
   fontBtn.addEventListener('click', () => {
     const on = root.dataset.font !== 'dyslexic';
     if (on) root.dataset.font = 'dyslexic'; else delete root.dataset.font;
@@ -437,6 +473,14 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
     if (returnFocus) openBtn.focus({ preventScroll: true });
   }
   openBtn.addEventListener('click', openMenu);
+  /* M: open the menu on small screens, jump into it on large ones */
+  document.addEventListener('keydown', e => {
+    if (e.key.toLowerCase() !== 'm' || e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName) || document.activeElement.isContentEditable) return;
+    e.preventDefault();
+    if (narrow.matches) { isOpen() ? closeMenu(true) : openMenu(); }
+    else side.querySelector('.home').focus();
+  });
   closeBtn.addEventListener('click', () => closeMenu(true));
   scrim.addEventListener('click', () => closeMenu(true));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(true); });
@@ -470,6 +514,17 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
   addEventListener('touchmove', () => { locked = null; }, { passive: true });
   addEventListener('resize', spy);
   spy();
+
+  /* home links: always land on the very top of the page, not on the first heading */
+  document.querySelectorAll('a[href="#top"]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    if (narrow.matches) closeMenu(false);
+    scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    history.replaceState(null, '', location.pathname + location.search);
+    navs.forEach(n => n.setAttribute('aria-current', 'false'));
+    document.querySelector('.intro h1').focus({ preventScroll: true });
+  }));
+  document.querySelector('.intro h1').tabIndex = -1;
 
   setTheme(root.dataset.theme);
   setLang(root.lang);

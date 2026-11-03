@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found · Mattéo Dewilde</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFFFFF" id="theme-color">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><circle cx='24' cy='8' r='3' fill='%237DD3FC'/><text x='15' y='22' text-anchor='middle' font-family='system-ui,sans-serif' font-size='14' font-weight='600' fill='%23FFFFFF'>MD</text></svg>">
+<script>
+(function () {
+  var d = document.documentElement, t = null, l = null, f = null;
+  try { t = localStorage.getItem('theme'); l = localStorage.getItem('lang'); f = localStorage.getItem('font'); } catch (e) {}
+  if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  if (l !== 'fr' && l !== 'en') l = (navigator.languages || [navigator.language || 'en']).some(function (x) { return /^fr\b/i.test(x); }) ? 'fr' : 'en';
+  d.dataset.theme = t; d.lang = l; if (f === 'dyslexic') d.dataset.font = 'dyslexic';
+})();
+</script>
+<style>
+/* absolute paths: this page is served for any missing URL, at any depth */
+@font-face{font-family:"Nunito";src:url(/fonts/nunito-latin-wght-normal.woff2) format("woff2");font-weight:200 1000;font-display:swap}
+@font-face{font-family:"OpenDyslexic";src:url(/fonts/opendyslexic-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"OpenDyslexic";src:url(/fonts/opendyslexic-latin-700-normal.woff2) format("woff2");font-weight:500 700;font-display:swap}
+:root{--bg:#FFFFFF;--text:#0A0A0A;--muted:#545454;--link-line:#0284C7;--accent-soft:#E0F4FE;--font:"Nunito",ui-rounded,system-ui,sans-serif;color-scheme:light}
+:root[data-theme="dark"]{--bg:#000;--text:#fff;--muted:#ABABAB;--link-line:#3B63D9;--accent-soft:#0B1633;color-scheme:dark}
+:root[data-font="dyslexic"]{--font:"OpenDyslexic",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;min-height:100svh;display:grid;place-items:center;padding:24px;background:var(--bg);color:var(--text);font:400 1.0625rem/1.65 var(--font);-webkit-font-smoothing:antialiased}
+main{max-width:480px;width:100%}
+.code{font-size:.875rem;color:var(--muted);margin:0 0 8px;font-variant-numeric:tabular-nums}
+h1{font-size:clamp(1.75rem,6vw,2.25rem);line-height:1.15;font-weight:800;letter-spacing:-.02em;margin:0 0 12px;text-wrap:balance}
+p{margin:0 0 28px;color:var(--muted);text-wrap:pretty}
+a.btn{display:inline-flex;align-items:center;height:46px;padding:0 20px;border:1.5px solid var(--text);border-radius:999px;color:var(--text);text-decoration:none;font-weight:700;transition:background-color .15s cubic-bezier(.23,1,.32,1)}
+a.btn:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){a.btn:hover{background:var(--accent-soft)}}
+:focus-visible{outline:2px solid var(--text);outline-offset:3px;border-radius:999px}
+</style>
+</head>
+<body>
+<main>
+  <p class="code">404</p>
+  <h1 data-en="This page doesn’t exist." data-fr="Cette page n’existe pas.">This page doesn’t exist.</h1>
+  <p data-en="The link may be outdated or mistyped. Everything is on the home page." data-fr="Le lien est peut-être ancien ou mal recopié. Tout se trouve sur la page d’accueil.">The link may be outdated or mistyped. Everything is on the home page.</p>
+  <a class="btn" href="/" data-en="Back to the home page" data-fr="Retour à l’accueil">Back to the home page</a>
+</main>
+<script>
+(() => {
+  const l = document.documentElement.lang, t = document.documentElement.dataset.theme;
+  document.querySelectorAll('[data-en]').forEach(n => { n.textContent = n.dataset[l] || n.dataset.en; });
+  document.title = l === 'fr' ? 'Page introuvable · Mattéo Dewilde' : 'Page not found · Mattéo Dewilde';
+  document.getElementById('theme-color').content = t === 'dark' ? '#000000' : '#FFFFFF';
+})();
+</script>
+</body>
+</html>
