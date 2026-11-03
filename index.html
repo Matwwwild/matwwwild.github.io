@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mattéo Dewilde · Software Engineer</title>
-<meta name="description" content="Computer engineering student at EPITA. Systems programming in C, backend and AI automation. Looking for a 6-month software engineering internship in the US in 2028.">
+<meta name="description" content="Computer engineering student at EPITA. Systems programming in C, backend and AI automation. Looking for a 4–6 month software engineering internship in the US in 2028.">
 <link rel="canonical" href="https://matwwwild.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://matwwwild.github.io/">
 <meta property="og:title" content="Mattéo Dewilde · Software Engineer">
-<meta property="og:description" content="Systems programming in C, backend and AI automation. Looking for a 6-month US internship in 2028.">
+<meta property="og:description" content="Systems programming in C, backend and AI automation. Looking for a 4–6 month US internship in 2028.">
 <meta property="og:image" content="https://matwwwild.github.io/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -85,13 +85,20 @@ h1,h2,h3{text-wrap:balance}
 .side-head,.scrim,.menu-open{display:none}
 
 /* floating controls, bottom right */
-.dock{position:fixed;right:max(20px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom));z-index:30;display:flex;gap:8px}
+.dock{position:fixed;right:max(20px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom));z-index:30;display:flex;gap:2px;
+  padding:3px;border:1.5px solid var(--text);border-radius:999px;background:var(--bg)}
+/* inside the bar the buttons lose their own outline: one object, three segments */
+.dock .ctl{border-color:transparent;height:40px;min-width:40px}
+.dock .ctl.icon{width:40px}
+.dock .ctl+.ctl{position:relative}
+@media (pointer:coarse){.dock .ctl{height:44px;min-width:44px}.dock .ctl.icon{width:44px}}
+.dock .ctl+.ctl::before{content:"";position:absolute;left:-2px;top:10px;bottom:10px;width:1px;background:var(--line)}
 .ctl{display:inline-flex;align-items:center;justify-content:center;height:44px;min-width:44px;padding:0 14px;border-radius:999px;
-  border:1px solid var(--line);background:var(--raised);box-shadow:var(--shadow);cursor:pointer;touch-action:manipulation;
-  font-size:.875rem;font-weight:600;letter-spacing:.02em;transition:transform .12s var(--ease-out),border-color .15s var(--ease-out)}
+  border:1.5px solid var(--text);background:var(--bg);cursor:pointer;touch-action:manipulation;
+  font-size:.875rem;font-weight:600;letter-spacing:.02em;transition:transform .12s var(--ease-out),background-color .15s var(--ease-out)}
 .ctl.icon{padding:0;width:44px}
 .ctl:active{transform:scale(.96)}
-@media (hover:hover) and (pointer:fine){.ctl:hover{border-color:var(--faint)}}
+@media (hover:hover) and (pointer:fine){.ctl:hover{background:var(--accent-soft)}}
 .ctl svg{display:block}
 .ctl .sun{display:none}
 :root[data-theme="dark"] .ctl .sun{display:block}
@@ -136,7 +143,7 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
 :root[data-font="dyslexic"] .layout{grid-template-columns:minmax(0,680px) 200px}
 :root[data-font="dyslexic"] h1,:root[data-font="dyslexic"] h2,:root[data-font="dyslexic"] h3{letter-spacing:0}
 :root[data-font="dyslexic"] .side a.nav{font-size:.95rem}
-.ctl[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:transparent}
+.ctl[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
 .ctl .aa{font-size:1rem;font-weight:700;letter-spacing:0}
 @media (max-width:900px){
   .layout{display:block;padding:0 20px}
@@ -145,7 +152,8 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
     margin:0 -20px;padding:8px 20px;background:color-mix(in srgb,var(--bg) 90%,transparent);
     -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
   .topbar .who{font-weight:600;text-decoration:none;letter-spacing:-.01em}
-  .menu-open{display:inline-flex}
+  /* same outline and height as the bottom bar, so both read as one family */
+  .menu-open{display:inline-flex;gap:8px;height:46px;padding:0 18px 0 16px}
   .side{position:fixed;top:0;right:0;bottom:0;height:auto;align-self:auto;width:min(300px,84vw);z-index:50;padding:0 12px 24px;
     background:var(--raised);border-left:1px solid var(--line);box-shadow:var(--shadow);
     transform:translateX(100%);visibility:hidden;
@@ -177,14 +185,17 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
   <div class="col">
     <div class="topbar">
       <a class="who" href="#top" translate="no">Mattéo Dewilde</a>
-      <button class="ctl menu-open" id="menu-open" aria-expanded="false" aria-controls="side" data-i18n="menu">Menu</button>
+      <button class="ctl menu-open" id="menu-open" aria-expanded="false" aria-controls="side">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span data-i18n="menu">Menu</span>
+      </button>
     </div>
 <main id="main">
   <div class="intro" id="top">
     <h1 translate="no">Mattéo Dewilde</h1>
     <p class="role" data-i18n="role">Software engineering student at EPITA, Paris</p>
     <p data-i18n="intro1">I work close to the system in C and build backends and automation that real teams use every day. I'm currently an AI automation engineer intern at Keyweo in Barcelona.</p>
-    <p class="status"><i aria-hidden="true"></i><span data-i18n="status">Looking for a 6-month software engineering internship in the US, starting 2028</span></p>
+    <p class="status"><i aria-hidden="true"></i><span data-i18n="status">Looking for a 4–6 month software engineering internship in the US, starting 2028</span></p>
     <ul class="links">
       <li><a href="mailto:matteo.dewilde1@gmail.com" data-i18n="link.email">Email</a></li>
       <li><a href="https://www.linkedin.com/in/matteo-dewilde" target="_blank" rel="noopener">LinkedIn</a></li>
@@ -333,7 +344,7 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
     'theme':'Thème', 'light':'Clair', 'dark':'Sombre', 'language':'Langue',
     'role':'Étudiant ingénieur en informatique à l’EPITA, Paris',
     'intro1':'Je travaille au plus près du système en C, et je développe des backends et des automatisations utilisés chaque jour par de vraies équipes. Je suis actuellement stagiaire ingénieur en automatisation IA chez Keyweo, à Barcelone.',
-    'status':'Je recherche un stage de 6 mois en développement logiciel aux États-Unis, à partir de 2028',
+    'status':'Je recherche un stage de 4 à 6 mois en développement logiciel aux États-Unis, à partir de 2028',
     'link.email':'Email', 'link.resume':'CV en anglais (PDF)',
     'keyweo.title':'Stagiaire ingénieur en automatisation IA', 'barcelona':'Barcelone',
     'keyweo.1':'Développement d’un CRM de qualification de leads en PHP 8.4 et MariaDB, pensé mobile d’abord pour les conseillers sur le terrain.',
@@ -364,7 +375,7 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem}
   };
   const META = {
     en: { title: 'Mattéo Dewilde · Software Engineer', desc: document.querySelector('meta[name=description]').content },
-    fr: { title: 'Mattéo Dewilde · Ingénieur logiciel', desc: 'Étudiant ingénieur à l’EPITA. Programmation système en C, backend et automatisation IA. Je recherche un stage de 6 mois aux États-Unis en 2028.' }
+    fr: { title: 'Mattéo Dewilde · Ingénieur logiciel', desc: 'Étudiant ingénieur à l’EPITA. Programmation système en C, backend et automatisation IA. Je recherche un stage de 4 à 6 mois aux États-Unis en 2028.' }
   };
   const EN = { 'font':'Dyslexia-friendly font', 'toTheme.dark':'Switch to dark theme', 'toTheme.light':'Switch to light theme', 'toLang':'Passer en français', 'close':'Close menu' };
   const root = document.documentElement;
