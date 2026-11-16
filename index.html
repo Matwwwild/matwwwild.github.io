@@ -94,7 +94,7 @@ h1,h2,h3{text-wrap:balance}
 .side a.nav[aria-current="true"]{background:var(--accent);color:var(--on-accent)}
 .side-head,.scrim,.menu-open{display:none}
 
-/* floating controls, bottom right */
+/* display controls: bottom right on wide screens, inside the top bar on small ones */
 .dock{position:fixed;right:max(20px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom));z-index:30;display:flex;gap:2px;
   padding:3px;border:1.5px solid var(--text);border-radius:999px;background:var(--bg)}
 /* inside the bar the buttons lose their own outline: one object, three segments */
@@ -167,9 +167,15 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem;display:flex;flex-w
   .topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;height:60px;
     margin:0 -20px;padding:8px 20px;background:color-mix(in srgb,var(--bg) 90%,transparent);
     -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-  .topbar .who{font-weight:600;text-decoration:none;letter-spacing:-.01em}
-  /* same outline and height as the bottom bar, so both read as one family */
-  .menu-open{display:inline-flex;gap:8px;height:46px;padding:0 18px 0 16px}
+  .topbar .who{display:inline-flex;align-items:center;min-height:44px;font-weight:600;text-decoration:none;letter-spacing:-.01em}
+  .who-short{display:none}
+  .bar-end{display:flex;align-items:center;gap:8px}
+  /* the display controls sit in the bar, next to the menu, so nothing floats over the text */
+  .dock{position:static;height:47px;padding:2px}
+  .dock .ctl{height:100%;min-width:42px}
+  .dock .ctl.icon{width:42px}
+  /* same outline and height as the controls, so both read as one family */
+  .topbar .menu-open{display:inline-flex;gap:8px;height:47px;padding:0 18px 0 16px}
   .side{position:fixed;top:0;right:0;bottom:0;height:auto;align-self:auto;width:min(300px,84vw);z-index:50;padding:0 12px 24px;
     background:var(--raised);border-left:1px solid var(--line);box-shadow:var(--shadow);
     transform:translateX(100%);visibility:hidden;
@@ -186,7 +192,21 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem;display:flex;flex-w
   .rows>li{gap:2px}
   .skills{gap:0}.skills dd{margin-bottom:12px}
 }
-@media (min-width:901px){.topbar{display:none}}
+/* phones: the name shrinks to its initials to leave room for the controls */
+@media (max-width:600px){
+  .who-full{display:none}
+  .who-short{display:inline;font-size:1.125rem;font-weight:800;letter-spacing:-.02em}
+}
+/* very narrow phones: the menu button keeps its icon only */
+@media (max-width:379px){
+  .topbar .menu-open{width:47px;padding:0;gap:0}
+  .menu-open span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+}
+/* wide screens: no top bar, its controls stay fixed at the bottom right */
+@media (min-width:901px){
+  .topbar,.bar-end{display:contents}
+  .topbar .who,.topbar .menu-open{display:none}
+}
 
 @media (prefers-reduced-motion:reduce){
   .side,.side[data-open]{transform:none;transition:opacity .15s linear,visibility 0s;opacity:0}
@@ -201,11 +221,21 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem;display:flex;flex-w
 <div class="layout">
   <div class="col" id="top">
     <div class="topbar">
-      <a class="who" href="#top" translate="no">Mattéo Dewilde</a>
-      <button class="ctl menu-open" id="menu-open" aria-expanded="false" aria-controls="side" aria-keyshortcuts="M">
-        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        <span data-i18n="menu">Menu</span>
-      </button>
+      <a class="who" href="#top" translate="no" aria-label="Mattéo Dewilde"><span class="who-full">Mattéo Dewilde</span><span class="who-short" aria-hidden="true">MD</span></a>
+      <div class="bar-end">
+        <div class="dock">
+          <button class="ctl icon" id="font-toggle" aria-pressed="false" aria-label="Dyslexia-friendly font"><span class="aa" aria-hidden="true">Aa</span></button>
+          <button class="ctl" id="lang-toggle" aria-label="Passer en français"><span id="lang-code">EN</span></button>
+          <button class="ctl icon" id="theme-toggle" aria-label="Switch to dark theme">
+            <svg class="moon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            <svg class="sun" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <button class="ctl menu-open" id="menu-open" aria-expanded="false" aria-controls="side" aria-keyshortcuts="M">
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span data-i18n="menu">Menu</span>
+        </button>
+      </div>
     </div>
 <main id="main">
   <div class="intro">
@@ -354,15 +384,6 @@ footer{padding-top:72px;color:var(--faint);font-size:.875rem;display:flex;flex-w
   </aside>
 </div>
 <div class="scrim" id="scrim"></div>
-
-<div class="dock">
-  <button class="ctl icon" id="font-toggle" aria-pressed="false" aria-label="Dyslexia-friendly font"><span class="aa" aria-hidden="true">Aa</span></button>
-  <button class="ctl" id="lang-toggle" aria-label="Passer en français"><span id="lang-code">EN</span></button>
-  <button class="ctl icon" id="theme-toggle" aria-label="Switch to dark theme">
-    <svg class="moon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-    <svg class="sun" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-  </button>
-</div>
 
 <script>
 (() => {
